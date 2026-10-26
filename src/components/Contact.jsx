@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Send,
-  Mail,
   Linkedin,
   Github,
   MessageSquare,
@@ -11,8 +10,7 @@ import {
   AlertCircle,
   ArrowUpRight,
   Copy,
-  Check,
-  Sparkles
+  Check
 } from 'lucide-react';
 import { profile } from '../data/profile';
 
@@ -78,12 +76,10 @@ export default function Contact() {
 
     setIsSubmitting(true);
 
-    // Simulate reliable packaging and construct prefilled mailto
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
 
-      // Open user's default email client pre-populated with their exact input
       const subject = encodeURIComponent(`Project Inquiry: ${formData.service} from ${formData.name}`);
       const body = encodeURIComponent(
         `Hi Rahul,\n\nMy name is ${formData.name} (${formData.email}).\n\nI'm reaching out regarding: ${formData.service}\nEstimated Budget: ${formData.budget}\n\nProject Details:\n${formData.message}\n\nLooking forward to speaking with you!`
@@ -101,24 +97,23 @@ export default function Contact() {
   return (
     <section id="contact" className="relative py-28 md:py-36 px-4 max-w-6xl mx-auto">
       {/* Background glow accent */}
-      <div className="absolute bottom-0 right-10 w-96 h-96 rounded-full bg-violet-600/[0.08] blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 right-10 w-96 h-96 rounded-full bg-crimson-600/[0.1] blur-[150px] pointer-events-none" />
 
       {/* Section Header */}
       <div className="flex flex-col items-start mb-16 md:mb-20">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-300 text-[11px] font-medium tracking-widest uppercase mb-4">
-          <MessageSquare className="w-3.5 h-3.5" />
-          <span>Get in Touch</span>
+        <div className="comic-stamp mb-4">
+          INDEX 05 // TRANSMISSION & INQUIRY
         </div>
 
-        <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white tracking-tight leading-tight max-w-2xl mb-4">
-          Let's make something{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-lavender-200 via-violet-300 to-purple-400">
-            matter.
+        <h2 className="font-monument text-4xl sm:text-6xl md:text-7xl text-white tracking-tight leading-none max-w-2xl mb-4">
+          LET'S MAKE SOMETHING{' '}
+          <span className="text-crimson-500 drop-shadow-[0_0_25px_rgba(220,38,38,0.5)]">
+            MATTER.
           </span>
         </h2>
 
-        <p className="text-zinc-400 text-sm sm:text-base max-w-xl">
-          Have a website to build, a brand to grow, or an idea you want to explore? Tell me about it.
+        <p className="font-tech text-xs sm:text-sm text-zinc-400 max-w-xl uppercase tracking-wider">
+          HAVE A WEBSITE TO BUILD, A BRAND TO GROW, OR AN IDEA YOU WANT TO EXPLORE? TELL ME ABOUT IT.
         </p>
       </div>
 
@@ -129,25 +124,25 @@ export default function Contact() {
 
           {/* Direct Email Card */}
           <div className="double-bezel-card">
-            <div className="double-bezel-inner p-6 sm:p-7 bg-[#0a0a14]">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-semibold uppercase tracking-wider text-violet-400">
-                  Direct Inbox
+            <div className="double-bezel-inner p-6 sm:p-7 bg-[#08080c] border border-white/[0.04]">
+              <div className="flex items-center justify-between mb-4 pb-2 border-b border-white/[0.06] font-tech">
+                <span className="text-xs uppercase tracking-wider text-crimson-400">
+                  // DIRECT INBOX
                 </span>
                 <button
                   type="button"
                   onClick={handleCopyEmail}
-                  className="flex items-center gap-1.5 text-[11px] text-zinc-400 hover:text-white px-2 py-1 rounded-md bg-white/[0.04] border border-white/[0.08] transition-colors"
+                  className="flex items-center gap-1.5 text-[10px] text-zinc-400 hover:text-white px-2 py-1 rounded bg-white/[0.04] border border-white/[0.08] transition-colors"
                 >
                   {copiedEmail ? (
                     <>
-                      <Check className="w-3 h-3 text-emerald-400" />
-                      <span className="text-emerald-400">Copied</span>
+                      <Check className="w-3 h-3 text-crimson-400" />
+                      <span className="text-crimson-400">COPIED</span>
                     </>
                   ) : (
                     <>
                       <Copy className="w-3 h-3" />
-                      <span>Copy</span>
+                      <span>COPY</span>
                     </>
                   )}
                 </button>
@@ -155,46 +150,46 @@ export default function Contact() {
 
               <a
                 href={profile.socials.email}
-                className="text-lg sm:text-xl font-display font-bold text-white hover:text-violet-300 transition-colors flex items-center gap-2 group"
+                className="text-lg sm:text-xl font-monument tracking-wider text-white hover:text-crimson-400 transition-colors flex items-center gap-2 group"
               >
                 <span>{profile.email}</span>
-                <ArrowUpRight className="w-4 h-4 text-zinc-500 group-hover:text-violet-300 transition-colors" />
+                <ArrowUpRight className="w-4 h-4 text-zinc-500 group-hover:text-crimson-400 transition-colors" />
               </a>
 
-              <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
-                Direct inquiries answered within 24 hours. Feel free to send specifications or RFP briefs directly.
+              <p className="text-xs text-zinc-400 mt-2 leading-relaxed font-sans">
+                Direct inquiries answered within 24 hours. Send project specs or RFP briefs directly.
               </p>
             </div>
           </div>
 
           {/* WhatsApp Direct Option */}
           <div className="double-bezel-card">
-            <div className="double-bezel-inner p-6 sm:p-7 bg-[#0a0a14]">
+            <div className="double-bezel-inner p-6 sm:p-7 bg-[#08080c] border border-white/[0.04]">
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                <div className="w-9 h-9 rounded-xl bg-crimson-600/15 border border-crimson-500/30 flex items-center justify-center text-crimson-400">
                   <Phone className="w-4 h-4" strokeWidth={1.75} />
                 </div>
                 <div>
-                  <h3 className="font-display font-bold text-white text-sm">
-                    WhatsApp Chat
+                  <h3 className="font-monument text-lg text-white tracking-wide">
+                    WHATSAPP DIRECT
                   </h3>
-                  <p className="text-[11px] text-zinc-400">
-                    Quick messaging & discussions
+                  <p className="font-tech text-[10px] text-zinc-400 uppercase">
+                    RAPID MESSAGING & DISCUSSIONS
                   </p>
                 </div>
               </div>
 
-              <p className="text-xs text-zinc-400 mb-4 leading-relaxed">
-                Prefer a fast, synchronous chat? Reach out directly via WhatsApp for swift project scoping.
+              <p className="text-xs text-zinc-400 mb-4 leading-relaxed font-sans">
+                Prefer a fast chat? Connect via WhatsApp for immediate project scoping.
               </p>
 
               <a
                 href={profile.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 text-xs font-medium transition-all"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-crimson-950/50 hover:bg-crimson-900/50 border border-crimson-600/40 text-crimson-300 font-monument text-xs tracking-wider transition-all"
               >
-                <span>Message on WhatsApp</span>
+                <span>MESSAGE ON WHATSAPP</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
             </div>
@@ -202,21 +197,21 @@ export default function Contact() {
 
           {/* Social Links Card */}
           <div className="double-bezel-card">
-            <div className="double-bezel-inner p-6 sm:p-7 bg-[#0a0a14]">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-4">
-                Verified Profiles
+            <div className="double-bezel-inner p-6 sm:p-7 bg-[#08080c] border border-white/[0.04]">
+              <h3 className="font-tech text-xs uppercase tracking-wider text-zinc-400 mb-4 pb-2 border-b border-white/[0.06]">
+                // VERIFIED PROFILES
               </h3>
 
-              <div className="flex flex-col gap-2.5">
+              <div className="flex flex-col gap-2.5 font-tech text-xs">
                 <a
                   href={profile.socials.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-violet-500/40 text-xs text-zinc-300 hover:text-white transition-all group"
+                  className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-crimson-500/40 text-zinc-300 hover:text-white transition-all group"
                 >
                   <div className="flex items-center gap-2.5">
-                    <Linkedin className="w-4 h-4 text-violet-400" />
-                    <span className="font-medium">LinkedIn Profile</span>
+                    <Linkedin className="w-4 h-4 text-crimson-400" />
+                    <span className="font-medium">LINKEDIN // PROFILE</span>
                   </div>
                   <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-white transition-colors" />
                 </a>
@@ -225,11 +220,11 @@ export default function Contact() {
                   href={profile.socials.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-violet-500/40 text-xs text-zinc-300 hover:text-white transition-all group"
+                  className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-crimson-500/40 text-zinc-300 hover:text-white transition-all group"
                 >
                   <div className="flex items-center gap-2.5">
-                    <Github className="w-4 h-4 text-violet-400" />
-                    <span className="font-medium">GitHub Repositories</span>
+                    <Github className="w-4 h-4 text-crimson-400" />
+                    <span className="font-medium">GITHUB // REPOSITORY</span>
                   </div>
                   <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-white transition-colors" />
                 </a>
@@ -241,7 +236,7 @@ export default function Contact() {
 
         {/* Right Column: Interactive Contact Form (col-span-7) */}
         <div className="lg:col-span-7 double-bezel-card">
-          <div className="double-bezel-inner p-7 sm:p-9 bg-[#090912]">
+          <div className="double-bezel-inner p-7 sm:p-9 bg-[#08080c] border border-white/[0.04]">
 
             {submitted ? (
               <motion.div
@@ -249,19 +244,19 @@ export default function Contact() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="py-12 flex flex-col items-center text-center space-y-4"
               >
-                <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-[0_0_30px_rgba(16,185,129,0.3)]">
+                <div className="w-16 h-16 rounded-2xl bg-crimson-600/20 border border-crimson-500/40 flex items-center justify-center text-crimson-400 shadow-glow-crimson">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
 
-                <h3 className="font-display font-bold text-2xl text-white">
-                  Inquiry Packaged & Dispatched!
+                <h3 className="font-monument text-3xl text-white tracking-wide">
+                  INQUIRY PACKAGED & DISPATCHED
                 </h3>
 
-                <p className="text-zinc-300 text-sm max-w-md leading-relaxed">
-                  Thank you, <span className="text-white font-semibold">{formData.name}</span>. Your default email client was opened with your message. If it didn't open automatically, you can also email directly to <span className="text-violet-300">{profile.email}</span>.
+                <p className="text-zinc-300 text-sm max-w-md leading-relaxed font-sans">
+                  Thank you, <span className="text-white font-semibold">{formData.name}</span>. Your default email client was opened with your message. You can also email directly to <span className="text-crimson-400">{profile.email}</span>.
                 </p>
 
-                <div className="pt-4">
+                <div className="pt-4 font-tech">
                   <button
                     type="button"
                     onClick={() => {
@@ -274,27 +269,27 @@ export default function Contact() {
                         budget: '$500 - $2,000',
                       });
                     }}
-                    className="px-5 py-2.5 rounded-full bg-white/[0.08] hover:bg-white/[0.12] text-xs font-medium text-white transition-colors"
+                    className="px-5 py-2.5 rounded-xl bg-white/[0.08] hover:bg-white/[0.12] text-xs uppercase font-medium text-white transition-colors"
                   >
-                    Send Another Note
+                    SEND ANOTHER NOTE
                   </button>
                 </div>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} noValidate className="space-y-6">
                 <div>
-                  <h3 className="font-display font-bold text-xl text-white mb-1">
-                    Send a Project Inquiry
+                  <h3 className="font-monument text-2xl text-white tracking-wide mb-1">
+                    SEND A PROJECT INQUIRY
                   </h3>
-                  <p className="text-xs text-zinc-400">
-                    Fill out the parameters below and we'll connect swiftly.
+                  <p className="font-tech text-xs text-zinc-400 uppercase">
+                    FILL OUT SPECIFICATIONS TO INITIATE COLLABORATION
                   </p>
                 </div>
 
                 {/* Service Selection Pills */}
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-2">
-                    I need help with:
+                  <label className="block font-tech text-xs uppercase tracking-wider text-zinc-300 mb-2">
+                    DISCIPLINE REQUIRED:
                   </label>
                   <div className="flex flex-wrap gap-2">
                     {serviceOptions.map((service) => (
@@ -302,9 +297,9 @@ export default function Contact() {
                         key={service}
                         type="button"
                         onClick={() => handleServiceSelect(service)}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                        className={`px-3 py-1.5 rounded-lg font-tech text-xs uppercase tracking-wider transition-all ${
                           formData.service === service
-                            ? 'bg-violet-600 text-white shadow-[0_0_15px_-3px_rgba(139,92,246,0.6)]'
+                            ? 'bg-crimson-600 text-white shadow-glow-crimson'
                             : 'bg-white/[0.03] text-zinc-400 hover:text-white border border-white/[0.06] hover:bg-white/[0.06]'
                         }`}
                       >
@@ -317,8 +312,8 @@ export default function Contact() {
                 {/* Name & Email Fields */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="name" className="block text-xs font-medium text-zinc-300 mb-1.5">
-                      Your Name <span className="text-violet-400">*</span>
+                    <label htmlFor="name" className="block font-tech text-xs text-zinc-300 mb-1.5 uppercase">
+                      NAME <span className="text-crimson-400">*</span>
                     </label>
                     <input
                       id="name"
@@ -328,11 +323,11 @@ export default function Contact() {
                       onChange={handleChange}
                       placeholder="e.g. Alex Morgan"
                       className={`w-full px-4 py-3 rounded-xl bg-white/[0.03] border ${
-                        errors.name ? 'border-red-500/70' : 'border-white/[0.08] focus:border-violet-500/60'
-                      } text-white placeholder-zinc-400 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-violet-500/60 transition-all`}
+                        errors.name ? 'border-crimson-500' : 'border-white/[0.08] focus:border-crimson-500'
+                      } text-white placeholder-zinc-500 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-crimson-500 transition-all font-sans`}
                     />
                     {errors.name && (
-                      <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1">
+                      <p className="text-[11px] text-crimson-400 mt-1 flex items-center gap-1 font-tech">
                         <AlertCircle className="w-3 h-3" />
                         <span>{errors.name}</span>
                       </p>
@@ -340,8 +335,8 @@ export default function Contact() {
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-xs font-medium text-zinc-300 mb-1.5">
-                      Your Email Address <span className="text-violet-400">*</span>
+                    <label htmlFor="email" className="block font-tech text-xs text-zinc-300 mb-1.5 uppercase">
+                      EMAIL ADDRESS <span className="text-crimson-400">*</span>
                     </label>
                     <input
                       id="email"
@@ -351,11 +346,11 @@ export default function Contact() {
                       onChange={handleChange}
                       placeholder="e.g. alex@company.com"
                       className={`w-full px-4 py-3 rounded-xl bg-white/[0.03] border ${
-                        errors.email ? 'border-red-500/70' : 'border-white/[0.08] focus:border-violet-500/60'
-                      } text-white placeholder-zinc-400 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-violet-500/60 transition-all`}
+                        errors.email ? 'border-crimson-500' : 'border-white/[0.08] focus:border-crimson-500'
+                      } text-white placeholder-zinc-500 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-crimson-500 transition-all font-sans`}
                     />
                     {errors.email && (
-                      <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1">
+                      <p className="text-[11px] text-crimson-400 mt-1 flex items-center gap-1 font-tech">
                         <AlertCircle className="w-3 h-3" />
                         <span>{errors.email}</span>
                       </p>
@@ -365,15 +360,15 @@ export default function Contact() {
 
                 {/* Optional Budget / Scope Select */}
                 <div>
-                  <label htmlFor="budget" className="block text-xs font-medium text-zinc-300 mb-1.5">
-                    Estimated Project Budget (Optional)
+                  <label htmlFor="budget" className="block font-tech text-xs text-zinc-300 mb-1.5 uppercase">
+                    ESTIMATED BUDGET SCOPE (OPTIONAL)
                   </label>
                   <select
                     id="budget"
                     name="budget"
                     value={formData.budget}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl bg-[#0e0e18] border border-white/[0.08] focus:border-violet-500/60 text-white text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-violet-500/60 transition-all"
+                    className="w-full px-4 py-3 rounded-xl bg-[#0b0b12] border border-white/[0.08] focus:border-crimson-500 text-white text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-crimson-500 transition-all font-tech"
                   >
                     <option value="Under $500">Under $500 (Small Sprint / Fix)</option>
                     <option value="$500 - $2,000">$500 - $2,000 (Standard Website / Branding Kit)</option>
@@ -385,8 +380,8 @@ export default function Contact() {
 
                 {/* Project Details Textarea */}
                 <div>
-                  <label htmlFor="message" className="block text-xs font-medium text-zinc-300 mb-1.5">
-                    Project Goals & Requirements <span className="text-violet-400">*</span>
+                  <label htmlFor="message" className="block font-tech text-xs text-zinc-300 mb-1.5 uppercase">
+                    PROJECT GOALS & REQUIREMENTS <span className="text-crimson-400">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -396,34 +391,34 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder="Tell me about what you're looking to build or achieve, target timeline, and any specific inspiration..."
                     className={`w-full px-4 py-3 rounded-xl bg-white/[0.03] border ${
-                      errors.message ? 'border-red-500/70' : 'border-white/[0.08] focus:border-violet-500/60'
-                    } text-white placeholder-zinc-400 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-violet-500/60 transition-all resize-y`}
+                      errors.message ? 'border-crimson-500' : 'border-white/[0.08] focus:border-crimson-500'
+                    } text-white placeholder-zinc-500 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-crimson-500 transition-all resize-y font-sans`}
                   />
                   {errors.message && (
-                    <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1">
+                    <p className="text-[11px] text-crimson-400 mt-1 flex items-center gap-1 font-tech">
                       <AlertCircle className="w-3 h-3" />
                       <span>{errors.message}</span>
                     </p>
                   )}
                 </div>
 
-                {/* Submit Button (Button-in-Button Architecture) */}
+                {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full group relative inline-flex items-center justify-between px-6 py-4 rounded-xl bg-gradient-to-r from-violet-600 via-violet-500 to-purple-600 text-white font-medium text-sm shadow-[0_0_25px_-5px_rgba(139,92,246,0.6)] hover:shadow-[0_0_35px_0px_rgba(139,92,246,0.85)] active:scale-[0.99] disabled:opacity-50 transition-all duration-300"
+                  className="w-full group relative inline-flex items-center justify-between px-6 py-4 rounded-xl bg-crimson-600 hover:bg-crimson-500 text-white font-monument text-lg tracking-wider shadow-glow-crimson active:scale-[0.99] disabled:opacity-50 transition-all duration-300"
                 >
-                  <span className="tracking-wide">
-                    {isSubmitting ? 'Packaging Inquiry...' : 'Send Inquiry to S Rahul'}
+                  <span>
+                    {isSubmitting ? 'PACKAGING TRANSMISSION...' : 'SEND INQUIRY TO S RAHUL'}
                   </span>
 
-                  <span className="w-7 h-7 rounded-lg bg-white/20 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1 group-hover:bg-white/30">
+                  <span className="w-7 h-7 rounded-lg bg-black/30 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
                     <Send className="w-3.5 h-3.5 text-white" />
                   </span>
                 </button>
 
-                <p className="text-[11px] text-center text-zinc-400 leading-normal">
-                  Zero spam. Submitting opens a direct mail dialogue with your pre-filled inquiry.
+                <p className="text-[10px] font-tech text-center text-zinc-400 uppercase">
+                  ZERO SPAM // SUBMITTING OPENS A DIRECT MAIL DIALOGUE WITH YOUR DETAILS
                 </p>
               </form>
             )}

@@ -1,17 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
   <defs>
-    <linearGradient id="sr-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#C4B5FD" />
-      <stop offset="50%" stop-color="#8B5CF6" />
-      <stop offset="100%" stop-color="#6D28D9" />
+    <linearGradient id="sr-crimson" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF1F44" />
+      <stop offset="50%" stop-color="#DC2626" />
+      <stop offset="100%" stop-color="#7F1D1D" />
     </linearGradient>
     <radialGradient id="sr-glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.5" />
+      <stop offset="0%" stop-color="#DC2626" stop-opacity="0.6" />
       <stop offset="100%" stop-color="#050507" stop-opacity="0" />
     </radialGradient>
   </defs>
-  <rect width="100" height="100" rx="28" fill="#0A0A10" />
-  <rect width="100" height="100" rx="28" stroke="url(#sr-grad)" stroke-width="2" stroke-opacity="0.4" />
-  <circle cx="50" cy="50" r="35" fill="url(#sr-glow)" />
-  <text x="50" y="59" font-family="'Space Grotesk', system-ui, sans-serif" font-weight="700" font-size="34" fill="url(#sr-grad)" text-anchor="middle" letter-spacing="-1">S.R</text>
+  <rect width="100" height="100" rx="20" fill="#060608" />
+  <rect width="100" height="100" rx="20" stroke="url(#sr-crimson)" stroke-width="2.5" stroke-opacity="0.7" />
+  <circle cx="50" cy="50" r="38" fill="url(#sr-glow)" />
+  <text x="50" y="62" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="42" fill="#FFFFFF" text-anchor="middle" letter-spacing="-1">SR</text>
 </svg>
