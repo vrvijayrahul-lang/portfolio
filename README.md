@@ -135,6 +135,41 @@ All personal information, links, and content are centralized so you can customiz
 
 ---
 
+## 🔐 Admin Dashboard & Control Matrix
+
+The portfolio includes a secure, interactive Admin Dashboard designed to match the crimson brutalist aesthetic.
+
+### Accessing the Dashboard:
+- Navigate to `#admin` or `/admin` in your browser (e.g., `http://localhost:3000/#admin` or `https://your-portfolio.vercel.app/#admin`).
+- Or click the **`[ADMIN CONSOLE]`** button located in the footer credits bar.
+
+### Authentication:
+- **Default Passcode:** `rahul2026` (also accepts `admin`)
+- **Quick Demo Unlock:** A one-click demo unlock button is provided on the login screen for instant access without typing.
+
+### Features & Capabilities:
+1. **Analytics & Traffic Matrix:**
+   - Real-time KPIs: Portfolio impressions, unique visitors, total inquiries, conversion rates.
+   - Interactive 7-day traffic and inquiry frequency sparkline chart.
+   - Project repository status & health breakdown.
+2. **Client Inquiries & Transmission Inbox:**
+   - Real-time inbox for all messages submitted through the portfolio contact form.
+   - Filter by All, Unread, Read, or Archived.
+   - Search inquiries by client name, email, service, or message content.
+   - Full dossier inspection modal with direct *"Reply via Email"* and *"WhatsApp"* shortcuts.
+   - One-click Export to JSON for external backup.
+3. **Project Catalog & Repository Manager:**
+   - Add new projects with custom title, category, technologies, live preview link, and GitHub URL.
+   - Edit existing project parameters and descriptions.
+   - Toggle projects between *"Live Production Work"* and *"Concept Prototype"* with a single click.
+   - Real-time synchronization: newly added or edited projects appear immediately on the live portfolio gallery!
+4. **Profile & Channels Configuration:**
+   - Update your live availability badge text directly from the dashboard.
+   - Update contact email, WhatsApp link, and social profiles.
+   - Factory Reset protocol to restore initial clean repository state whenever needed.
+
+---
+
 ## 🎨 Design System Principles (High-End Agency Tier)
 
 - **The Double-Bezel (Doppelrand):** Cards feature concentric nested radiuses simulating physical milled hardware (`p-1.5` outer shell with hairline highlight, nested with inner dark core).

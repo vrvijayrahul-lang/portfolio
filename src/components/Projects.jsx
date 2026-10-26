@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FolderGit2, Sparkles, Filter } from 'lucide-react';
-import { projects, projectCategories } from '../data/projects';
+import { projectCategories } from '../data/projects';
+import { getStoredProjects } from '../data/store';
 import ProjectCard from './ProjectCard';
 import ProjectModal from './ProjectModal';
 
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedProject, setSelectedProject] = useState(null);
+  const [projectList, setProjectList] = useState(getStoredProjects());
+
+  // Listen to updates from admin dashboard
+  useEffect(() => {
+    const handleStorageUpdate = () => {
+      setProjectList(getStoredProjects());
+    };
+    window.addEventListener('srahul_storage_update', handleStorageUpdate);
+    return () => window.removeEventListener('srahul_storage_update', handleStorageUpdate);
+  }, []);
 
   // Filter projects by category
-  const filteredProjects = projects.filter((project) => {
+  const filteredProjects = projectList.filter((project) => {
     if (activeCategory === 'All') return true;
-    return project.categories.includes(activeCategory);
+    return project.categories && project.categories.includes(activeCategory);
   });
 
   return (
@@ -70,8 +81,8 @@ export default function Projects() {
               {isActive && (
                 <span className="ml-1.5 text-[9px] bg-black/40 px-1.5 py-0.5 rounded font-mono">
                   {cat === 'All'
-                    ? projects.length
-                    : projects.filter((p) => p.categories.includes(cat)).length}
+                    ? projectList.length
+                    : projectList.filter((p) => p.categories && p.categories.includes(cat)).length}
                 </span>
               )}
             </button>

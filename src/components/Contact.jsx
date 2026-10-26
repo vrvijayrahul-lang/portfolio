@@ -13,6 +13,7 @@ import {
   Check
 } from 'lucide-react';
 import { profile } from '../data/profile';
+import { addInquiry } from '../data/store';
 
 const serviceOptions = [
   "Web Development",
@@ -79,6 +80,15 @@ export default function Contact() {
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
+
+      // Save inquiry to persistent admin store
+      addInquiry({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        service: formData.service,
+        budget: formData.budget,
+        message: formData.message.trim(),
+      });
 
       const subject = encodeURIComponent(`Project Inquiry: ${formData.service} from ${formData.name}`);
       const body = encodeURIComponent(

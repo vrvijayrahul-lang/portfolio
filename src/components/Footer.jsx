@@ -10,7 +10,7 @@ const footerNav = [
   { label: 'CONTACT', href: '#contact' },
 ];
 
-export default function Footer() {
+export default function Footer({ onOpenAdmin }) {
   const currentYear = new Date().getFullYear();
 
   const scrollToTop = () => {
@@ -137,7 +137,13 @@ export default function Footer() {
           </p>
 
           <div className="flex items-center gap-4">
-            <span>HIGH-IMPACT BRUTALIST ARCHITECTURE</span>
+            <button
+              type="button"
+              onClick={onOpenAdmin}
+              className="text-zinc-500 hover:text-crimson-400 transition-colors flex items-center gap-1 uppercase"
+            >
+              <span>[ADMIN CONSOLE]</span>
+            </button>
             <span>•</span>
             <span className="text-crimson-400">COLOR: CRIMSON ROJO</span>
           </div>
