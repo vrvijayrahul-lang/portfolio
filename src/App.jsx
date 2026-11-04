@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import BackgroundAtmosphere from './components/BackgroundAtmosphere';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import About from './components/About';
 import Services from './components/Services';
+import Stats from './components/Stats';
 import Projects from './components/Projects';
-import Skills from './components/Skills';
+import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AdminDashboard from './components/admin/AdminDashboard';
@@ -47,28 +47,28 @@ export default function App() {
       {/* Floating Island Navigation */}
       <Navbar />
 
-      {/* Main Content Flow */}
+      {/* Main Agency Content Flow */}
       <main className="relative z-10 flex flex-col">
         {/* Hero Section */}
         <Hero />
 
-        {/* About Section */}
-        <About />
-
-        {/* Services Section */}
+        {/* Core Services Section */}
         <Services />
 
-        {/* Selected Projects Portfolio Gallery */}
+        {/* Impact Benchmarks & Telemetry Stats */}
+        <Stats />
+
+        {/* Selected Client Work Portfolio */}
         <Projects />
 
-        {/* Skills & Toolkit Section */}
-        <Skills />
+        {/* About & Agency Philosophy */}
+        <About />
 
-        {/* Contact & Inquiries Section */}
+        {/* Project Estimation & Contact */}
         <Contact />
       </main>
 
-      {/* Site Footer with Admin trigger */}
+      {/* Agency Footer with Admin trigger */}
       <Footer onOpenAdmin={openAdmin} />
     </div>
   );

@@ -3,10 +3,10 @@ import { ArrowUp, Github, Linkedin, Mail } from 'lucide-react';
 import { profile } from '../data/profile';
 
 const footerNav = [
-  { label: 'ABOUT', href: '#about' },
+  { label: 'HOME', href: '#home' },
   { label: 'SERVICES', href: '#services' },
   { label: 'WORK', href: '#work' },
-  { label: 'TOOLKIT', href: '#skills' },
+  { label: 'ABOUT', href: '#about' },
   { label: 'CONTACT', href: '#contact' },
 ];
 
@@ -26,33 +26,31 @@ export default function Footer({ onOpenAdmin }) {
   };
 
   return (
-    <footer className="relative border-t border-white/[0.08] bg-[#050507] pt-16 pb-12 px-4 overflow-hidden">
+    <footer className="relative border-t border-white/[0.08] bg-[#050507] pt-16 pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Subtle top crimson glow line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-crimson-600/60 to-transparent" />
 
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/[0.06]">
 
-          {/* Brand & Monogram (col-span-5) */}
+          {/* Brand & Manifesto (col-span-5) */}
           <div className="md:col-span-5 space-y-4">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-crimson-600 flex items-center justify-center shadow-glow-crimson">
-                <span className="font-monument text-lg text-white">
-                  SR
-                </span>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-crimson-600 flex items-center justify-center font-monument text-lg text-white shadow-glow-crimson">
+                M
               </div>
               <div>
                 <span className="font-monument text-lg text-white tracking-wider block">
-                  {profile.name}
+                  METIA DIGITAL
                 </span>
                 <span className="block text-[9px] font-tech text-zinc-400 uppercase tracking-widest">
-                  DIGITAL ARCHITECT & CREATOR
+                  WEBSITE DEVELOPMENT
                 </span>
               </div>
             </div>
 
             <p className="text-xs sm:text-sm text-zinc-400 max-w-sm leading-relaxed font-sans">
-              Bridging engineering precision, modern UI/UX design, and AI automation to craft high-impact digital experiences.
+              Modern websites. Better digital experiences. We engineer fast, responsive, and conversion-focused web solutions for growing companies.
             </p>
 
             <div className="flex items-center gap-3 pt-2">
@@ -77,16 +75,16 @@ export default function Footer({ onOpenAdmin }) {
               </a>
 
               <a
-                href={profile.socials.email}
+                href={`mailto:${profile.email}`}
                 className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] text-zinc-400 hover:text-white hover:border-crimson-500/50 flex items-center justify-center transition-colors"
-                aria-label="Email S Rahul"
+                aria-label="Email Metia Digital"
               >
                 <Mail className="w-4 h-4" />
               </a>
             </div>
           </div>
 
-          {/* Quick Links (col-span-4) */}
+          {/* Quick Directory Links (col-span-4) */}
           <div className="md:col-span-4 space-y-3 font-tech">
             <h4 className="text-xs font-semibold uppercase tracking-wider text-crimson-400">
               // DIRECTORY
@@ -106,15 +104,15 @@ export default function Footer({ onOpenAdmin }) {
             </ul>
           </div>
 
-          {/* Availability & Back to Top (col-span-3) */}
+          {/* System Status & Back to Top (col-span-3) */}
           <div className="md:col-span-3 space-y-4 flex flex-col justify-between items-start md:items-end font-tech">
             <div className="text-left md:text-right">
               <span className="text-[10px] uppercase tracking-wider text-zinc-400 font-semibold block mb-1">
-                SYSTEM STATUS
+                AGENCY AVAILABILITY
               </span>
               <span className="inline-flex items-center gap-1.5 text-xs text-crimson-400 font-medium">
                 <span className="w-2 h-2 rounded-full bg-crimson-500 animate-pulse" />
-                AVAILABLE WORLDWIDE
+                ACCEPTING Q4 CLIENTS
               </span>
             </div>
 
@@ -133,19 +131,19 @@ export default function Footer({ onOpenAdmin }) {
         {/* Bottom Credits & Legal */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-tech text-[10px] text-zinc-400 uppercase tracking-wider">
           <p>
-            © {currentYear} S RAHUL // ALL RIGHTS RESERVED.
+            © {currentYear} METIA DIGITAL. ALL RIGHTS RESERVED.
           </p>
 
           <div className="flex items-center gap-4">
             <button
               type="button"
               onClick={onOpenAdmin}
-              className="text-zinc-500 hover:text-crimson-400 transition-colors flex items-center gap-1 uppercase"
+              className="text-zinc-500 hover:text-crimson-400 transition-colors flex items-center gap-1 uppercase cursor-pointer"
             >
               <span>[ADMIN CONSOLE]</span>
             </button>
             <span>•</span>
-            <span className="text-crimson-400">COLOR: CRIMSON ROJO</span>
+            <span className="text-crimson-400">DESIGN: VANGUARD EDITORIAL</span>
           </div>
         </div>
 

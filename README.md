@@ -1,178 +1,55 @@
-# S Rahul — Premium Developer & Digital Creator Portfolio
+# Metia Digital: Website Development Services
 
-A high-performance, dark-themed personal portfolio website for **S Rahul** (Digital Creator | Web Developer | Digital Marketer). Engineered with agency-grade visual design, haptic micro-interactions, fluid motion dynamics, and accessible component architecture.
+A high-performance digital agency web application for **Metia Digital** (Website Development Services). Engineered with modern anti-slop frontend architecture, hardware-inspired double-bezel cards, fluid motion dynamics, telemetry benchmarks, and an integrated Admin Console.
 
 ---
 
-## ⚡ Tech Stack & Architecture
+## Tech Stack & Architecture
 
 - **Core:** React 18, Vite 6, JavaScript (ES6+)
-- **Styling:** Tailwind CSS 3.4 with custom theme tokens (electric violet `#8B5CF6`, lavender `#C4B5FD`, deep OLED `#050507`)
-- **Motion & Interactions:** Framer Motion (spring physics, staggered reveals, morphing navigation)
-- **Icons:** Lucide React (configured with ultra-light precise strokes)
-- **Typography:** Space Grotesk (Headings) & DM Sans / Plus Jakarta Sans (Body)
-- **SEO & Social:** OpenGraph, Twitter Cards, JSON-LD `Person` schema, custom SVG favicon, `sitemap.xml`, and `robots.txt`
+- **Styling:** Tailwind CSS 3.4 with custom theme tokens (Crimson Rojo `#E51D25`, deep OLED obsidian `#050507`)
+- **Motion & Interactions:** Framer Motion (spring physics, staggered reveals, reduced-motion compliance)
+- **Icons:** Lucide React
+- **Typography:** Space Grotesk, Plus Jakarta Sans, Bebas Neue, Space Mono
+- **SEO & Social:** OpenGraph, Twitter Cards, JSON-LD `ProfessionalService` schema, custom SVG favicon, and sitemap
 
 ---
 
-## 📂 Project Structure
+## Core Agency Offerings
 
-```
-VR Rahul/
-├── public/
-│   ├── favicon.svg             # Custom S.R monogram vector icon
-│   ├── robots.txt              # Search crawler directives
-│   └── sitemap.xml             # Search engine index sitemap
-├── src/
-│   ├── assets/                 # Static brand assets
-│   ├── components/
-│   │   ├── About.jsx           # Bento-grid narrative & multidisciplinary edge
-│   │   ├── BackgroundAtmosphere.jsx # Performant fixed ambient gradients & noise
-│   │   ├── Contact.jsx         # Validated inquiry form with mailto fallback
-│   │   ├── Footer.jsx          # Auto-updating copyright & brand links
-│   │   ├── Hero.jsx            # 3D orbital emblem, live status badge & CTAs
-│   │   ├── Navbar.jsx          # Floating glass pill navbar & mobile menu
-│   │   ├── ProjectCard.jsx     # Double-bezel project card with status tags
-│   │   ├── ProjectModal.jsx    # Deep-dive interactive case study modal
-│   │   ├── Projects.jsx        # Category-filtered portfolio gallery
-│   │   └── Skills.jsx          # Grouped honest toolkit cards
-│   ├── data/
-│   │   ├── profile.js          # Central config: name, email, socials & status
-│   │   ├── projects.js         # 6 portfolio projects (Production vs Concepts)
-│   │   ├── services.js         # 6 core service definitions & deliverables
-│   │   └── skills.js           # Categorized development, creative & AI skills
-│   ├── App.jsx                 # Main layout and composition
-│   ├── index.css               # Tailwind directives & hardware bezel styles
-│   └── main.jsx                # React DOM mount point
-├── index.html                  # SEO metadata, Google Fonts, JSON-LD schema
-├── package.json
-├── postcss.config.js
-├── tailwind.config.js
-└── vite.config.js
-```
+1. **Custom Website Design:** Beautiful, responsive, and conversion-focused websites engineered specifically for high-growth brands.
+2. **Web Applications:** Complex business logic translated into fast, reactive web applications.
+3. **E-Commerce Development:** Scalable online storefronts with frictionless checkout flows and secure Stripe/PayPal integrations.
+4. **SEO Optimization:** Comprehensive technical SEO audits, schema markup, and search-intent architecture that drives qualified organic traffic.
+5. **Digital Marketing:** High-converting landing pages, lead funnels, and data-driven acquisition campaigns.
+6. **Website Maintenance:** 24/7 uptime monitoring, security patching, and continuous performance tuning.
 
 ---
 
-## 🚀 Local Development
+## Local Development
 
-### 1. Prerequisites
-Ensure you have Node.js (v18+) and npm installed.
-
-### 2. Install Dependencies
 ```bash
+# Install dependencies
 npm install
-```
 
-### 3. Start Development Server
-```bash
+# Start development server
 npm run dev
-```
-Open `http://localhost:3000` (or the port displayed in your terminal) in your browser.
 
-### 4. Build for Production
-```bash
+# Build for production
 npm run build
-```
-The optimized production bundle will be generated in the `dist/` directory.
 
-### 5. Preview Production Build Locally
-```bash
+# Preview production build locally
 npm run preview
 ```
 
 ---
 
-## 🛠️ Personalization & Configuration Checklist
+## Admin Console
 
-All personal information, links, and content are centralized so you can customize them in seconds:
-
-1. **Personal Information & Social Links:**
-   - Open [`src/data/profile.js`](src/data/profile.js)
-   - Update `email`, `phone`, `whatsapp`, `socials.github`, and `socials.linkedin`.
-
-2. **Domain & SEO Canonical URL:**
-   - When you connect your custom domain (e.g. `https://srahul.com`), update:
-     - [`index.html`](index.html): `<link rel="canonical" href="..." />` and OpenGraph tags
-     - [`public/robots.txt`](public/robots.txt): Sitemap URL
-     - [`public/sitemap.xml`](public/sitemap.xml): `<loc>` tags
-     - [`src/data/profile.js`](src/data/profile.js): `domain` property
-
-3. **Projects & Case Studies:**
-   - Open [`src/data/projects.js`](src/data/projects.js)
-   - Add your own live URLs, GitHub repository links, or new client deliverables.
-   - You can mark any project as completed (`isCompleted: true`) or concept (`isCompleted: false`).
-
----
-
-## 🌐 Deploying to Vercel
-
-### Option A: Via GitHub (Recommended)
-
-1. **Initialize Git & Push to GitHub:**
-   ```bash
-   git init
-   git add .
-   git commit -m "feat: initial commit for S Rahul portfolio"
-   git branch -M main
-   git remote add origin https://github.com/<your-username>/s-rahul-portfolio.git
-   git push -u origin main
-   ```
-
-2. **Import to Vercel:**
-   - Go to [vercel.com](https://vercel.com) and log in.
-   - Click **"Add New..."** → **"Project"**.
-   - Select your GitHub repository (`s-rahul-portfolio`).
-   - Vercel will automatically detect **Vite**:
-     - **Build Command:** `npm run build`
-     - **Output Directory:** `dist`
-     - **Install Command:** `npm install`
-   - Click **"Deploy"**.
-
-3. **Connect a Custom Domain:**
-   - In your Vercel Project Dashboard, navigate to **Settings** → **Domains**.
-   - Enter your domain (e.g., `srahul.dev` or `srahul.com`).
-   - Add the DNS records (`CNAME` or `A` record) provided by Vercel into your domain registrar (GoDaddy, Namecheap, Cloudflare, etc.).
-
----
-
-## 🔐 Admin Dashboard & Control Matrix
-
-The portfolio includes a secure, interactive Admin Dashboard designed to match the crimson brutalist aesthetic.
-
-### Accessing the Dashboard:
-- Navigate to `#admin` or `/admin` in your browser (e.g., `http://localhost:3000/#admin` or `https://your-portfolio.vercel.app/#admin`).
-- Or click the **`[ADMIN CONSOLE]`** button located in the footer credits bar.
-
-### Authentication:
-- **Default Passcode:** `rahul2026` (also accepts `admin`)
-- **Quick Demo Unlock:** A one-click demo unlock button is provided on the login screen for instant access without typing.
-
-### Features & Capabilities:
-1. **Analytics & Traffic Matrix:**
-   - Real-time KPIs: Portfolio impressions, unique visitors, total inquiries, conversion rates.
-   - Interactive 7-day traffic and inquiry frequency sparkline chart.
-   - Project repository status & health breakdown.
-2. **Client Inquiries & Transmission Inbox:**
-   - Real-time inbox for all messages submitted through the portfolio contact form.
-   - Filter by All, Unread, Read, or Archived.
-   - Search inquiries by client name, email, service, or message content.
-   - Full dossier inspection modal with direct *"Reply via Email"* and *"WhatsApp"* shortcuts.
-   - One-click Export to JSON for external backup.
-3. **Project Catalog & Repository Manager:**
-   - Add new projects with custom title, category, technologies, live preview link, and GitHub URL.
-   - Edit existing project parameters and descriptions.
-   - Toggle projects between *"Live Production Work"* and *"Concept Prototype"* with a single click.
-   - Real-time synchronization: newly added or edited projects appear immediately on the live portfolio gallery!
-4. **Profile & Channels Configuration:**
-   - Update your live availability badge text directly from the dashboard.
-   - Update contact email, WhatsApp link, and social profiles.
-   - Factory Reset protocol to restore initial clean repository state whenever needed.
-
----
-
-## 🎨 Design System Principles (High-End Agency Tier)
-
-- **The Double-Bezel (Doppelrand):** Cards feature concentric nested radiuses simulating physical milled hardware (`p-1.5` outer shell with hairline highlight, nested with inner dark core).
-- **Button-in-Button:** Interactive CTAs feature nested circular icon wrappers that dynamically translate on hover.
-- **Atmospheric Lighting:** Deepest OLED `#050507` backdrop illuminated with subtle diffuse violet/lavender mesh radiance and tactile film grain.
-- **Zero Generic AI Aesthetics:** Strict avoidance of generic fonts (Inter/Roboto), raw gray borders, and harsh drop shadows.
+- **Access:** Append `#admin` to the URL (or navigate to `/admin`, or click `[ADMIN CONSOLE]` in the footer)
+- **Passcode:** `metia2026` (or `admin`, or use the one-click demo unlock button)
+- **Features:**
+  - Real-time client inquiry management with email response triggers
+  - KPI telemetry: 28k+ impressions, visitor growth, conversion rates
+  - Client project catalog manager with live status updates
+  - Agency profile and channel parameters configuration

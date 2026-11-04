@@ -1,37 +1,45 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import {
   Send,
-  Linkedin,
-  Github,
-  MessageSquare,
-  Phone,
+  Mail,
+  Copy,
+  Check,
   CheckCircle2,
   AlertCircle,
   ArrowUpRight,
-  Copy,
-  Check
+  Clock,
+  ShieldCheck
 } from 'lucide-react';
 import { profile } from '../data/profile';
 import { addInquiry } from '../data/store';
 
 const serviceOptions = [
-  "Web Development",
-  "UI/UX Design",
-  "Digital Marketing & SEO",
-  "WordPress Development",
-  "Graphic Design & Canva",
-  "AI Tools & Automation",
-  "General Consultation",
+  "Custom Website Design",
+  "E-Commerce Development",
+  "SEO Optimization",
+  "Website Maintenance",
+  "Digital Marketing",
+  "Web Applications",
+  "Other / General Inquiry",
+];
+
+const budgetOptions = [
+  "$1,000 - $3,000",
+  "$3,000 - $5,000",
+  "$5,000 - $10,000",
+  "$10,000+",
 ];
 
 export default function Contact() {
+  const shouldReduceMotion = useReducedMotion();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    service: 'Web Development',
+    service: 'Custom Website Design',
+    budget: '$3,000 - $5,000',
     message: '',
-    budget: '$500 - $2,000',
   });
 
   const [errors, setErrors] = useState({});
@@ -39,36 +47,23 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
 
-  // Validate form
   const validate = () => {
-    const newErrors = {};
+    const errs = {};
     if (!formData.name.trim()) {
-      newErrors.name = 'Please provide your name';
+      errs.name = 'Please provide your name';
     }
     if (!formData.email.trim()) {
-      newErrors.email = 'Please provide an email address';
+      errs.email = 'Please provide your email address';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
-      newErrors.email = 'Please enter a valid email address';
+      errs.email = 'Please provide a valid email address';
     }
     if (!formData.message.trim()) {
-      newErrors.message = 'Please share a brief note about your project';
+      errs.message = 'Please provide a few project details';
     } else if (formData.message.trim().length < 15) {
-      newErrors.message = 'Please provide at least 15 characters of detail';
+      errs.message = 'Please provide at least 15 characters of detail';
     }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: null }));
-    }
-  };
-
-  const handleServiceSelect = (service) => {
-    setFormData((prev) => ({ ...prev, service }));
+    setErrors(errs);
+    return Object.keys(errs).length === 0;
   };
 
   const handleSubmit = (e) => {
@@ -77,11 +72,7 @@ export default function Contact() {
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-
-      // Save inquiry to persistent admin store
+    try {
       addInquiry({
         name: formData.name.trim(),
         email: formData.email.trim(),
@@ -90,349 +81,230 @@ export default function Contact() {
         message: formData.message.trim(),
       });
 
-      const subject = encodeURIComponent(`Project Inquiry: ${formData.service} from ${formData.name}`);
-      const body = encodeURIComponent(
-        `Hi Rahul,\n\nMy name is ${formData.name} (${formData.email}).\n\nI'm reaching out regarding: ${formData.service}\nEstimated Budget: ${formData.budget}\n\nProject Details:\n${formData.message}\n\nLooking forward to speaking with you!`
+      // Prepare mailto fallback link for client convenience
+      const mailSubject = encodeURIComponent(`Project Inquiry: ${formData.service} from ${formData.name}`);
+      const mailBody = encodeURIComponent(
+        `Hi Metia Digital Team,\n\nName: ${formData.name}\nEmail: ${formData.email}\nService: ${formData.service}\nBudget: ${formData.budget}\n\nProject Scope:\n${formData.message}\n`
       );
-      window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
-    }, 600);
+      const mailtoLink = `mailto:${profile.email}?subject=${mailSubject}&body=${mailBody}`;
+
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setSubmitted(true);
+        // Open pre-populated mail client fallback as well
+        window.open(mailtoLink, '_blank');
+      }, 600);
+    } catch (err) {
+      console.error(err);
+      setIsSubmitting(false);
+    }
   };
 
-  const handleCopyEmail = () => {
+  const copyEmail = () => {
     navigator.clipboard.writeText(profile.email);
     setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2500);
+    setTimeout(() => setCopiedEmail(false), 2000);
   };
 
   return (
-    <section id="contact" className="relative py-28 md:py-36 px-4 max-w-6xl mx-auto">
-      {/* Background glow accent */}
-      <div className="absolute bottom-0 right-10 w-96 h-96 rounded-full bg-crimson-600/[0.1] blur-[150px] pointer-events-none" />
+    <section id="contact" className="relative py-24 md:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
 
-      {/* Section Header */}
-      <div className="flex flex-col items-start mb-16 md:mb-20">
-        <div className="comic-stamp mb-4">
-          INDEX 05 // TRANSMISSION & INQUIRY
-        </div>
-
-        <h2 className="font-monument text-4xl sm:text-6xl md:text-7xl text-white tracking-tight leading-none max-w-2xl mb-4">
-          LET'S MAKE SOMETHING{' '}
-          <span className="text-crimson-500 drop-shadow-[0_0_25px_rgba(220,38,38,0.5)]">
-            MATTER.
-          </span>
-        </h2>
-
-        <p className="font-tech text-xs sm:text-sm text-zinc-400 max-w-xl uppercase tracking-wider">
-          HAVE A WEBSITE TO BUILD, A BRAND TO GROW, OR AN IDEA YOU WANT TO EXPLORE? TELL ME ABOUT IT.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-
-        {/* Left Column: Direct Channels & Information (col-span-5) */}
-        <div className="lg:col-span-5 space-y-6">
+        {/* Left Column: Direct Contact & Guarantees (col-span-5) */}
+        <div className="lg:col-span-5 flex flex-col">
+          <h2 className="font-monument text-4xl sm:text-6xl text-white tracking-tight leading-[0.95] mb-4">
+            BUILD YOUR <span className="text-crimson-500">DREAM WEBSITE</span>
+          </h2>
+          <p className="text-base sm:text-lg text-zinc-300 font-sans leading-relaxed mb-8">
+            Let us create a modern digital experience for your business. Tell us about your goals and we will prepare a tailored proposal within 24 hours.
+          </p>
 
           {/* Direct Email Card */}
-          <div className="double-bezel-card">
-            <div className="double-bezel-inner p-6 sm:p-7 bg-[#08080c] border border-white/[0.04]">
-              <div className="flex items-center justify-between mb-4 pb-2 border-b border-white/[0.06] font-tech">
-                <span className="text-xs uppercase tracking-wider text-crimson-400">
-                  // DIRECT INBOX
-                </span>
-                <button
-                  type="button"
-                  onClick={handleCopyEmail}
-                  className="flex items-center gap-1.5 text-[10px] text-zinc-400 hover:text-white px-2 py-1 rounded bg-white/[0.04] border border-white/[0.08] transition-colors"
-                >
-                  {copiedEmail ? (
-                    <>
-                      <Check className="w-3 h-3 text-crimson-400" />
-                      <span className="text-crimson-400">COPIED</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3 h-3" />
-                      <span>COPY</span>
-                    </>
-                  )}
-                </button>
-              </div>
-
+          <div className="p-6 rounded-2xl bg-[#08080c] border border-white/[0.08] mb-6">
+            <span className="text-[10px] font-tech text-zinc-400 uppercase tracking-widest block mb-2">
+              DIRECT AGENCY TRANSMISSION
+            </span>
+            <div className="flex items-center justify-between gap-3">
               <a
-                href={profile.socials.email}
-                className="text-lg sm:text-xl font-monument tracking-wider text-white hover:text-crimson-400 transition-colors flex items-center gap-2 group"
+                href={`mailto:${profile.email}`}
+                className="text-lg font-tech text-white hover:text-crimson-400 transition-colors font-semibold"
               >
-                <span>{profile.email}</span>
-                <ArrowUpRight className="w-4 h-4 text-zinc-500 group-hover:text-crimson-400 transition-colors" />
+                {profile.email}
               </a>
-
-              <p className="text-xs text-zinc-400 mt-2 leading-relaxed font-sans">
-                Direct inquiries answered within 24 hours. Send project specs or RFP briefs directly.
-              </p>
-            </div>
-          </div>
-
-          {/* WhatsApp Direct Option */}
-          <div className="double-bezel-card">
-            <div className="double-bezel-inner p-6 sm:p-7 bg-[#08080c] border border-white/[0.04]">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-9 h-9 rounded-xl bg-crimson-600/15 border border-crimson-500/30 flex items-center justify-center text-crimson-400">
-                  <Phone className="w-4 h-4" strokeWidth={1.75} />
-                </div>
-                <div>
-                  <h3 className="font-monument text-lg text-white tracking-wide">
-                    WHATSAPP DIRECT
-                  </h3>
-                  <p className="font-tech text-[10px] text-zinc-400 uppercase">
-                    RAPID MESSAGING & DISCUSSIONS
-                  </p>
-                </div>
-              </div>
-
-              <p className="text-xs text-zinc-400 mb-4 leading-relaxed font-sans">
-                Prefer a fast chat? Connect via WhatsApp for immediate project scoping.
-              </p>
-
-              <a
-                href={profile.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-crimson-950/50 hover:bg-crimson-900/50 border border-crimson-600/40 text-crimson-300 font-monument text-xs tracking-wider transition-all"
+              <button
+                type="button"
+                onClick={copyEmail}
+                className="p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-zinc-400 hover:text-white transition-colors"
+                title="Copy email to clipboard"
               >
-                <span>MESSAGE ON WHATSAPP</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
+                {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+              </button>
             </div>
           </div>
 
-          {/* Social Links Card */}
-          <div className="double-bezel-card">
-            <div className="double-bezel-inner p-6 sm:p-7 bg-[#08080c] border border-white/[0.04]">
-              <h3 className="font-tech text-xs uppercase tracking-wider text-zinc-400 mb-4 pb-2 border-b border-white/[0.06]">
-                // VERIFIED PROFILES
-              </h3>
-
-              <div className="flex flex-col gap-2.5 font-tech text-xs">
-                <a
-                  href={profile.socials.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-crimson-500/40 text-zinc-300 hover:text-white transition-all group"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <Linkedin className="w-4 h-4 text-crimson-400" />
-                    <span className="font-medium">LINKEDIN // PROFILE</span>
-                  </div>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-white transition-colors" />
-                </a>
-
-                <a
-                  href={profile.socials.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-crimson-500/40 text-zinc-300 hover:text-white transition-all group"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <Github className="w-4 h-4 text-crimson-400" />
-                    <span className="font-medium">GITHUB // REPOSITORY</span>
-                  </div>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-white transition-colors" />
-                </a>
-              </div>
+          {/* Response SLA Guarantees */}
+          <div className="space-y-4 text-xs font-tech text-zinc-300">
+            <div className="flex items-center gap-3">
+              <Clock className="w-4 h-4 text-crimson-500" />
+              <span>Guaranteed Response Time: Under 24 Hours</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <ShieldCheck className="w-4 h-4 text-crimson-500" />
+              <span>Strict Non-Disclosure and IP Protection</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="w-4 h-4 text-crimson-500" />
+              <span>Free Architecture Consultation and Scope Estimate</span>
             </div>
           </div>
-
         </div>
 
-        {/* Right Column: Interactive Contact Form (col-span-7) */}
+        {/* Right Column: Interactive Project Inquiry Terminal (col-span-7) */}
         <div className="lg:col-span-7 double-bezel-card">
-          <div className="double-bezel-inner p-7 sm:p-9 bg-[#08080c] border border-white/[0.04]">
-
+          <div className="double-bezel-inner p-8 sm:p-10 bg-[#08080c] border border-white/[0.08]">
             {submitted ? (
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="py-12 flex flex-col items-center text-center space-y-4"
               >
-                <div className="w-16 h-16 rounded-2xl bg-crimson-600/20 border border-crimson-500/40 flex items-center justify-center text-crimson-400 shadow-glow-crimson">
+                <div className="w-16 h-16 rounded-full bg-crimson-600/20 border border-crimson-500/50 flex items-center justify-center text-crimson-400">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-
                 <h3 className="font-monument text-3xl text-white tracking-wide">
-                  INQUIRY PACKAGED & DISPATCHED
+                  TRANSMISSION RECEIVED
                 </h3>
-
-                <p className="text-zinc-300 text-sm max-w-md leading-relaxed font-sans">
-                  Thank you, <span className="text-white font-semibold">{formData.name}</span>. Your default email client was opened with your message. You can also email directly to <span className="text-crimson-400">{profile.email}</span>.
+                <p className="text-sm text-zinc-300 max-w-md font-sans">
+                  Thank you for contacting Metia Digital. Your inquiry has been registered in our project pipeline and our engineering director will respond shortly.
                 </p>
-
-                <div className="pt-4 font-tech">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSubmitted(false);
-                      setFormData({
-                        name: '',
-                        email: '',
-                        service: 'Web Development',
-                        message: '',
-                        budget: '$500 - $2,000',
-                      });
-                    }}
-                    className="px-5 py-2.5 rounded-xl bg-white/[0.08] hover:bg-white/[0.12] text-xs uppercase font-medium text-white transition-colors"
-                  >
-                    SEND ANOTHER NOTE
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => setSubmitted(false)}
+                  className="mt-4 px-6 py-2.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.12] text-xs font-tech text-zinc-300 uppercase tracking-wider"
+                >
+                  SEND ANOTHER TRANSMISSION
+                </button>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} noValidate className="space-y-6">
-                <div>
-                  <h3 className="font-monument text-2xl text-white tracking-wide mb-1">
-                    SEND A PROJECT INQUIRY
-                  </h3>
-                  <p className="font-tech text-xs text-zinc-400 uppercase">
-                    FILL OUT SPECIFICATIONS TO INITIATE COLLABORATION
-                  </p>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Name & Email Row */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-xs font-tech uppercase tracking-wider text-zinc-300 mb-2">
+                      YOUR NAME *
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Jane Doe"
+                      className={`w-full px-4 py-3 rounded-xl bg-white/[0.03] border text-sm text-white placeholder-zinc-500 focus:outline-none transition-colors ${
+                        errors.name ? 'border-crimson-500' : 'border-white/[0.1] focus:border-crimson-500'
+                      }`}
+                    />
+                    {errors.name && (
+                      <span className="text-[11px] font-tech text-crimson-400 mt-1 block">
+                        {errors.name}
+                      </span>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-tech uppercase tracking-wider text-zinc-300 mb-2">
+                      WORK EMAIL *
+                    </label>
+                    <input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="jane@company.com"
+                      className={`w-full px-4 py-3 rounded-xl bg-white/[0.03] border text-sm text-white placeholder-zinc-500 focus:outline-none transition-colors ${
+                        errors.email ? 'border-crimson-500' : 'border-white/[0.1] focus:border-crimson-500'
+                      }`}
+                    />
+                    {errors.email && (
+                      <span className="text-[11px] font-tech text-crimson-400 mt-1 block">
+                        {errors.email}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
-                {/* Service Selection Pills */}
+                {/* Service Picker */}
                 <div>
-                  <label className="block font-tech text-xs uppercase tracking-wider text-zinc-300 mb-2">
-                    DISCIPLINE REQUIRED:
+                  <label className="block text-xs font-tech uppercase tracking-wider text-zinc-300 mb-2">
+                    PRIMARY SERVICE REQUIRED
                   </label>
-                  <div className="flex flex-wrap gap-2">
-                    {serviceOptions.map((service) => (
+                  <select
+                    value={formData.service}
+                    onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-[#0d0d14] border border-white/[0.1] text-sm text-white focus:outline-none focus:border-crimson-500 transition-colors"
+                  >
+                    {serviceOptions.map((opt) => (
+                      <option key={opt} value={opt} className="bg-[#0d0d14] text-white">
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Budget Range */}
+                <div>
+                  <label className="block text-xs font-tech uppercase tracking-wider text-zinc-300 mb-2">
+                    ESTIMATED BUDGET TIER
+                  </label>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {budgetOptions.map((tier) => (
                       <button
-                        key={service}
+                        key={tier}
                         type="button"
-                        onClick={() => handleServiceSelect(service)}
-                        className={`px-3 py-1.5 rounded-lg font-tech text-xs uppercase tracking-wider transition-all ${
-                          formData.service === service
-                            ? 'bg-crimson-600 text-white shadow-glow-crimson'
-                            : 'bg-white/[0.03] text-zinc-400 hover:text-white border border-white/[0.06] hover:bg-white/[0.06]'
+                        onClick={() => setFormData({ ...formData, budget: tier })}
+                        className={`py-2 px-3 rounded-lg text-xs font-tech tracking-wider uppercase border transition-colors cursor-pointer ${
+                          formData.budget === tier
+                            ? 'bg-crimson-600/30 border-crimson-500 text-white font-semibold'
+                            : 'bg-white/[0.02] border-white/[0.08] text-zinc-400 hover:text-white'
                         }`}
                       >
-                        {service}
+                        {tier}
                       </button>
                     ))}
                   </div>
                 </div>
 
-                {/* Name & Email Fields */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="name" className="block font-tech text-xs text-zinc-300 mb-1.5 uppercase">
-                      NAME <span className="text-crimson-400">*</span>
-                    </label>
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="e.g. Alex Morgan"
-                      className={`w-full px-4 py-3 rounded-xl bg-white/[0.03] border ${
-                        errors.name ? 'border-crimson-500' : 'border-white/[0.08] focus:border-crimson-500'
-                      } text-white placeholder-zinc-500 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-crimson-500 transition-all font-sans`}
-                    />
-                    {errors.name && (
-                      <p className="text-[11px] text-crimson-400 mt-1 flex items-center gap-1 font-tech">
-                        <AlertCircle className="w-3 h-3" />
-                        <span>{errors.name}</span>
-                      </p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label htmlFor="email" className="block font-tech text-xs text-zinc-300 mb-1.5 uppercase">
-                      EMAIL ADDRESS <span className="text-crimson-400">*</span>
-                    </label>
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="e.g. alex@company.com"
-                      className={`w-full px-4 py-3 rounded-xl bg-white/[0.03] border ${
-                        errors.email ? 'border-crimson-500' : 'border-white/[0.08] focus:border-crimson-500'
-                      } text-white placeholder-zinc-500 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-crimson-500 transition-all font-sans`}
-                    />
-                    {errors.email && (
-                      <p className="text-[11px] text-crimson-400 mt-1 flex items-center gap-1 font-tech">
-                        <AlertCircle className="w-3 h-3" />
-                        <span>{errors.email}</span>
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Optional Budget / Scope Select */}
+                {/* Message Body */}
                 <div>
-                  <label htmlFor="budget" className="block font-tech text-xs text-zinc-300 mb-1.5 uppercase">
-                    ESTIMATED BUDGET SCOPE (OPTIONAL)
-                  </label>
-                  <select
-                    id="budget"
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl bg-[#0b0b12] border border-white/[0.08] focus:border-crimson-500 text-white text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-crimson-500 transition-all font-tech"
-                  >
-                    <option value="Under $500">Under $500 (Small Sprint / Fix)</option>
-                    <option value="$500 - $2,000">$500 - $2,000 (Standard Website / Branding Kit)</option>
-                    <option value="$2,000 - $5,000">$2,000 - $5,000 (Full-Stack App / End-to-End System)</option>
-                    <option value="$5,000+">$5,000+ (Ongoing Retainer / Enterprise Scope)</option>
-                    <option value="To be discussed">To be discussed</option>
-                  </select>
-                </div>
-
-                {/* Project Details Textarea */}
-                <div>
-                  <label htmlFor="message" className="block font-tech text-xs text-zinc-300 mb-1.5 uppercase">
-                    PROJECT GOALS & REQUIREMENTS <span className="text-crimson-400">*</span>
+                  <label className="block text-xs font-tech uppercase tracking-wider text-zinc-300 mb-2">
+                    PROJECT SCOPE & TIMELINE *
                   </label>
                   <textarea
-                    id="message"
-                    name="message"
                     rows={4}
                     value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Tell me about what you're looking to build or achieve, target timeline, and any specific inspiration..."
-                    className={`w-full px-4 py-3 rounded-xl bg-white/[0.03] border ${
-                      errors.message ? 'border-crimson-500' : 'border-white/[0.08] focus:border-crimson-500'
-                    } text-white placeholder-zinc-500 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-crimson-500 transition-all resize-y font-sans`}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    placeholder="Describe your current website, key goals, target timeline, or reference websites..."
+                    className={`w-full px-4 py-3 rounded-xl bg-white/[0.03] border text-sm text-white placeholder-zinc-500 focus:outline-none transition-colors resize-none ${
+                      errors.message ? 'border-crimson-500' : 'border-white/[0.1] focus:border-crimson-500'
+                    }`}
                   />
                   {errors.message && (
-                    <p className="text-[11px] text-crimson-400 mt-1 flex items-center gap-1 font-tech">
-                      <AlertCircle className="w-3 h-3" />
-                      <span>{errors.message}</span>
-                    </p>
+                    <span className="text-[11px] font-tech text-crimson-400 mt-1 block">
+                      {errors.message}
+                    </span>
                   )}
                 </div>
 
-                {/* Submit Button */}
+                {/* Submit Action */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full group relative inline-flex items-center justify-between px-6 py-4 rounded-xl bg-crimson-600 hover:bg-crimson-500 text-white font-monument text-lg tracking-wider shadow-glow-crimson active:scale-[0.99] disabled:opacity-50 transition-all duration-300"
+                  className="w-full group inline-flex items-center justify-center gap-3 py-4 rounded-xl bg-crimson-600 hover:bg-crimson-500 text-white font-tech text-xs tracking-wider uppercase font-semibold shadow-glow-crimson transition-all duration-300 active:scale-[0.98] cursor-pointer disabled:opacity-50"
                 >
-                  <span>
-                    {isSubmitting ? 'PACKAGING TRANSMISSION...' : 'SEND INQUIRY TO S RAHUL'}
-                  </span>
-
-                  <span className="w-7 h-7 rounded-lg bg-black/30 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
-                    <Send className="w-3.5 h-3.5 text-white" />
+                  <span>{isSubmitting ? 'TRANSMITTING INQUIRY...' : 'START YOUR PROJECT'}</span>
+                  <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
+                    <ArrowUpRight className="w-3.5 h-3.5 text-white" />
                   </span>
                 </button>
-
-                <p className="text-[10px] font-tech text-center text-zinc-400 uppercase">
-                  ZERO SPAM // SUBMITTING OPENS A DIRECT MAIL DIALOGUE WITH YOUR DETAILS
-                </p>
               </form>
             )}
-
           </div>
         </div>
 

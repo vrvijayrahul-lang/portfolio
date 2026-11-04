@@ -3,124 +3,127 @@ import { profile as initialProfile } from './profile';
 import { services as initialServices } from './services';
 
 const STORAGE_KEYS = {
-  PROJECTS: 'srahul_projects_data',
-  PROFILE: 'srahul_profile_data',
-  INQUIRIES: 'srahul_inquiries_data',
-  ANALYTICS: 'srahul_analytics_data',
-  AUTH: 'srahul_admin_auth',
+  PROJECTS: 'metia_projects_data',
+  PROFILE: 'metia_profile_data',
+  INQUIRIES: 'metia_inquiries_data',
+  ANALYTICS: 'metia_analytics_data',
+  AUTH: 'metia_admin_auth',
 };
 
-// Initial realistic inquiries for demonstration and testing
+// Realistic initial client inquiries for Metia Digital
 const initialInquiries = [
   {
     id: 'inq-101',
-    name: 'Marcus Vance',
-    email: 'marcus@vancemedia.co',
-    service: 'Web Development',
-    budget: '$2,000 - $5,000',
-    message: 'We are redesigning our SaaS marketing landing page and need high-speed React architecture with editorial aesthetics similar to Linear. Looking to kick off next month.',
+    name: 'Julian Henderson',
+    email: 'julian@arcadiagroup.co',
+    service: 'Custom Website Design',
+    budget: '$5,000 - $10,000',
+    message: 'We are looking to completely redesign our corporate consulting website with a fast, modern technical aesthetic similar to Linear and Stripe. Need launch within 6 weeks.',
     date: '2026-10-25T14:32:00Z',
     status: 'unread',
-    notes: 'High priority lead from London.',
+    notes: 'High priority corporate lead. Prepared discovery schedule.',
   },
   {
     id: 'inq-102',
-    name: 'Elena Rostova',
-    email: 'elena.design@studio-noir.io',
-    service: 'UI/UX Design',
-    budget: '$5,000+',
-    message: 'Loved your brutalist editorial layout. We need a design system and high-fidelity Figma components for an underground electronic music streaming platform.',
+    name: 'Sophia Laurent',
+    email: 'sophia@maisonlaurent.com',
+    service: 'E-Commerce Development',
+    budget: '$10,000+',
+    message: 'We require a bespoke luxury storefront with custom checkout and international shipping. Looking for exceptional speed and editorial brand presentation.',
     date: '2026-10-24T09:15:00Z',
     status: 'read',
-    notes: 'Discussed timeline over email. Follow up on Monday.',
+    notes: 'Sent initial capability deck. Awaiting product SKU count.',
   },
   {
     id: 'inq-103',
-    name: 'David Chen',
-    email: 'david@growthengine.xyz',
-    service: 'AI Tools & Automation',
-    budget: '$500 - $2,000',
-    message: 'Need help automating our weekly newsletter curation pipeline using custom LLM prompts and markdown exports.',
+    name: 'Marcus Thorne',
+    email: 'm.thorne@cloudscale.io',
+    service: 'Web Applications',
+    budget: '$5,000 - $10,000',
+    message: 'Need a custom telemetry and client usage dashboard built in React with real-time analytics integrations and team permission management.',
     date: '2026-10-22T18:40:00Z',
     status: 'archived',
-    notes: 'Completed discovery call.',
+    notes: 'Discovery call held on Tuesday. Proposal accepted.',
   },
 ];
 
 const initialAnalytics = {
-  totalViews: 14280,
-  uniqueVisitors: 6420,
-  projectClicks: 1890,
-  conversionRate: '4.8%',
+  totalViews: 28420,
+  uniqueVisitors: 11840,
+  projectClicks: 3410,
+  conversionRate: '5.2%',
   weeklyTraffic: [
-    { day: 'Mon', views: 820, inquiries: 2 },
-    { day: 'Tue', views: 1140, inquiries: 4 },
-    { day: 'Wed', views: 980, inquiries: 3 },
-    { day: 'Thu', views: 1420, inquiries: 7 },
-    { day: 'Fri', views: 1650, inquiries: 5 },
-    { day: 'Sat', views: 1210, inquiries: 2 },
-    { day: 'Sun', views: 1390, inquiries: 3 },
+    { day: 'Mon', views: 1820, inquiries: 3 },
+    { day: 'Tue', views: 2340, inquiries: 6 },
+    { day: 'Wed', views: 2180, inquiries: 5 },
+    { day: 'Thu', views: 2820, inquiries: 9 },
+    { day: 'Fri', views: 3150, inquiries: 8 },
+    { day: 'Sat', views: 1640, inquiries: 2 },
+    { day: 'Sun', views: 1890, inquiries: 4 },
   ],
 };
 
-// --- Profile Store ---
+function dispatchStoreUpdate() {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event('metia_storage_update'));
+    window.dispatchEvent(new Event('srahul_storage_update')); // backward compatibility
+  }
+}
+
 export function getStoredProfile() {
   try {
-    const data = localStorage.getItem(STORAGE_KEYS.PROFILE);
-    return data ? JSON.parse(data) : initialProfile;
+    const raw = localStorage.getItem(STORAGE_KEYS.PROFILE);
+    return raw ? JSON.parse(raw) : initialProfile;
   } catch (e) {
+    console.error('Failed reading stored profile', e);
     return initialProfile;
   }
 }
 
-export function saveStoredProfile(updatedProfile) {
+export function saveStoredProfile(newProfile) {
   try {
-    localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(updatedProfile));
-    window.dispatchEvent(new Event('srahul_storage_update'));
+    localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(newProfile));
+    dispatchStoreUpdate();
   } catch (e) {
-    console.error('Failed to save profile to localStorage', e);
+    console.error('Failed saving profile', e);
   }
 }
 
-// --- Projects Store ---
 export function getStoredProjects() {
   try {
-    const data = localStorage.getItem(STORAGE_KEYS.PROJECTS);
-    return data ? JSON.parse(data) : initialProjects;
+    const raw = localStorage.getItem(STORAGE_KEYS.PROJECTS);
+    return raw ? JSON.parse(raw) : initialProjects;
   } catch (e) {
+    console.error('Failed reading stored projects', e);
     return initialProjects;
   }
 }
 
-export function saveStoredProjects(updatedProjects) {
+export function saveStoredProjects(projectsList) {
   try {
-    localStorage.setItem(STORAGE_KEYS.PROJECTS, JSON.stringify(updatedProjects));
-    window.dispatchEvent(new Event('srahul_storage_update'));
+    localStorage.setItem(STORAGE_KEYS.PROJECTS, JSON.stringify(projectsList));
+    dispatchStoreUpdate();
   } catch (e) {
-    console.error('Failed to save projects to localStorage', e);
+    console.error('Failed saving projects', e);
   }
 }
 
-// --- Inquiries Store ---
 export function getStoredInquiries() {
   try {
-    const data = localStorage.getItem(STORAGE_KEYS.INQUIRIES);
-    if (!data) {
-      localStorage.setItem(STORAGE_KEYS.INQUIRIES, JSON.stringify(initialInquiries));
-      return initialInquiries;
-    }
-    return JSON.parse(data);
+    const raw = localStorage.getItem(STORAGE_KEYS.INQUIRIES);
+    return raw ? JSON.parse(raw) : initialInquiries;
   } catch (e) {
+    console.error('Failed reading stored inquiries', e);
     return initialInquiries;
   }
 }
 
-export function saveStoredInquiries(inquiries) {
+export function saveStoredInquiries(inquiriesList) {
   try {
-    localStorage.setItem(STORAGE_KEYS.INQUIRIES, JSON.stringify(inquiries));
-    window.dispatchEvent(new Event('srahul_storage_update'));
+    localStorage.setItem(STORAGE_KEYS.INQUIRIES, JSON.stringify(inquiriesList));
+    dispatchStoreUpdate();
   } catch (e) {
-    console.error('Failed to save inquiries to localStorage', e);
+    console.error('Failed saving inquiries', e);
   }
 }
 
@@ -142,59 +145,68 @@ export function addInquiry(inquiry) {
   }
 }
 
-export function markInquiryStatus(id, status) {
-  const existing = getStoredInquiries();
-  const updated = existing.map((item) => (item.id === id ? { ...item, status } : item));
-  saveStoredInquiries(updated);
+export function markInquiryStatus(id, newStatus) {
+  try {
+    const existing = getStoredInquiries();
+    const updated = existing.map((inq) =>
+      inq.id === id ? { ...inq, status: newStatus } : inq
+    );
+    saveStoredInquiries(updated);
+  } catch (e) {
+    console.error('Failed to update inquiry status', e);
+  }
 }
 
 export function deleteInquiry(id) {
-  const existing = getStoredInquiries();
-  const updated = existing.filter((item) => item.id !== id);
-  saveStoredInquiries(updated);
+  try {
+    const existing = getStoredInquiries();
+    const updated = existing.filter((inq) => inq.id !== id);
+    saveStoredInquiries(updated);
+  } catch (e) {
+    console.error('Failed to delete inquiry', e);
+  }
 }
 
-// --- Analytics Store ---
 export function getStoredAnalytics() {
   try {
-    const data = localStorage.getItem(STORAGE_KEYS.ANALYTICS);
-    return data ? JSON.parse(data) : initialAnalytics;
+    const raw = localStorage.getItem(STORAGE_KEYS.ANALYTICS);
+    return raw ? JSON.parse(raw) : initialAnalytics;
   } catch (e) {
+    console.error('Failed reading analytics', e);
     return initialAnalytics;
   }
 }
 
-// --- Auth Store ---
 export function checkAdminAuth() {
   try {
-    return localStorage.getItem(STORAGE_KEYS.AUTH) === 'true';
+    return sessionStorage.getItem(STORAGE_KEYS.AUTH) === 'true';
   } catch (e) {
     return false;
   }
 }
 
-export function setAdminAuth(isAuthenticated) {
+export function setAdminAuth(isAuthed) {
   try {
-    if (isAuthenticated) {
-      localStorage.setItem(STORAGE_KEYS.AUTH, 'true');
+    if (isAuthed) {
+      sessionStorage.setItem(STORAGE_KEYS.AUTH, 'true');
     } else {
-      localStorage.removeItem(STORAGE_KEYS.AUTH);
+      sessionStorage.removeItem(STORAGE_KEYS.AUTH);
     }
-    window.dispatchEvent(new Event('srahul_storage_update'));
+    dispatchStoreUpdate();
   } catch (e) {
-    console.error('Failed to update auth status', e);
+    console.error('Failed setting admin auth', e);
   }
 }
 
-// Reset store to defaults
 export function resetStoreToDefaults() {
   try {
     localStorage.removeItem(STORAGE_KEYS.PROJECTS);
     localStorage.removeItem(STORAGE_KEYS.PROFILE);
     localStorage.removeItem(STORAGE_KEYS.INQUIRIES);
     localStorage.removeItem(STORAGE_KEYS.ANALYTICS);
-    window.dispatchEvent(new Event('srahul_storage_update'));
+    sessionStorage.removeItem(STORAGE_KEYS.AUTH);
+    dispatchStoreUpdate();
   } catch (e) {
-    console.error('Failed to reset store', e);
+    console.error('Failed resetting store', e);
   }
 }

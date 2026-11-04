@@ -8,11 +8,11 @@ export default function AdminLogin({ onLogin, onBackToSite }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Default passcodes accepted: rahul2026, admin, admin123
-    if (password === 'rahul2026' || password === 'admin' || password === 'admin123') {
+    const validCodes = ['metia2026', 'metia', 'admin', 'admin123', 'rahul2026'];
+    if (validCodes.includes(password.toLowerCase().trim())) {
       onLogin();
     } else {
-      setError('Access Denied. Passcode incorrect. (Hint: rahul2026 or click Quick Demo Unlock below)');
+      setError('Access Denied. Passcode incorrect. (Hint: metia2026 or click Quick Demo Unlock below)');
     }
   };
 
@@ -37,7 +37,7 @@ export default function AdminLogin({ onLogin, onBackToSite }) {
           <button
             type="button"
             onClick={onBackToSite}
-            className="flex items-center gap-2 font-tech text-xs text-zinc-400 hover:text-white mb-6 transition-colors"
+            className="flex items-center gap-2 font-tech text-xs text-zinc-400 hover:text-white mb-6 transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>RETURN TO LIVE SITE</span>
@@ -50,67 +50,62 @@ export default function AdminLogin({ onLogin, onBackToSite }) {
             </div>
             <div>
               <h2 className="font-monument text-2xl tracking-wide text-white">
-                ADMIN CONSOLE
+                AGENCY CONSOLE
               </h2>
               <p className="font-tech text-[10px] text-crimson-400 uppercase tracking-widest">
-                PROTOCOL // SECURITY GATE
+                METIA DIGITAL // SECURITY GATE
               </p>
             </div>
           </div>
 
-          <p className="text-xs text-zinc-400 leading-relaxed mb-6 font-sans">
-            Authorized access only for S Rahul. Manage live client inquiries, projects, profile availability, and site metrics.
-          </p>
-
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="admin-pass" className="block font-tech text-xs uppercase tracking-wider text-zinc-300 mb-1.5">
-                ACCESS PASSCODE:
+              <label className="block text-xs font-tech text-zinc-400 uppercase tracking-wider mb-2">
+                ADMIN PASSCODE
               </label>
               <div className="relative">
                 <input
-                  id="admin-pass"
                   type="password"
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
-                    if (error) setError('');
+                    setError('');
                   }}
-                  placeholder="Enter passcode (e.g. rahul2026)"
-                  className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.1] focus:border-crimson-500 text-white placeholder-zinc-500 text-sm focus:outline-none focus:ring-1 focus:ring-crimson-500 transition-all font-tech"
+                  placeholder="Enter passcode..."
+                  className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.1] text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-crimson-500 font-mono"
+                  autoFocus
                 />
-                <KeyRound className="absolute right-3.5 top-3.5 w-4 h-4 text-zinc-500" />
+                <KeyRound className="absolute right-3.5 top-3.5 w-4 h-4 text-zinc-500 pointer-events-none" />
               </div>
               {error && (
-                <p className="text-[11px] text-crimson-400 mt-2 flex items-center gap-1.5 font-tech">
+                <div className="mt-2 text-xs font-tech text-crimson-400 flex items-center gap-1.5">
                   <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                   <span>{error}</span>
-                </p>
+                </div>
               )}
             </div>
 
             <button
               type="submit"
-              className="w-full py-3.5 rounded-xl bg-crimson-600 hover:bg-crimson-500 text-white font-monument text-base tracking-wider shadow-glow-crimson flex items-center justify-center gap-2 transition-all active:scale-[0.99]"
+              className="w-full py-3.5 rounded-xl bg-crimson-600 hover:bg-crimson-500 text-white font-tech text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 shadow-glow-crimson transition-all active:scale-[0.98] cursor-pointer"
             >
-              <span>AUTHORIZE SESSION</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>AUTHENTICATE</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </form>
 
-          {/* Quick Demo Unlock Divider */}
-          <div className="mt-6 pt-6 border-t border-white/[0.08] text-center">
+          {/* Demo Unlock Shortcut */}
+          <div className="mt-6 pt-6 border-t border-white/[0.06] text-center">
             <button
               type="button"
               onClick={handleQuickUnlock}
-              className="w-full py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] hover:border-crimson-500/40 text-xs font-tech text-zinc-300 hover:text-white transition-all flex items-center justify-center gap-2"
+              className="w-full py-2.5 rounded-lg bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.08] text-xs font-tech text-zinc-400 hover:text-white transition-colors cursor-pointer"
             >
-              <ShieldCheck className="w-4 h-4 text-crimson-400" />
-              <span>QUICK DEMO UNLOCK (ONE-CLICK ACCESS)</span>
+              QUICK DEMO UNLOCK (ONE-CLICK)
             </button>
-            <p className="font-tech text-[10px] text-zinc-500 mt-2 uppercase">
-              DEFAULT PASSCODE: <code className="text-crimson-400 font-mono">rahul2026</code>
-            </p>
+            <span className="block text-[10px] font-tech text-zinc-400 mt-2">
+              Default passcode: <code className="text-crimson-400">metia2026</code>
+            </span>
           </div>
 
         </div>

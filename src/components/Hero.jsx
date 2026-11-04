@@ -1,9 +1,23 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowUpRight, Code, Palette, Cpu, Sparkles, ChevronDown, CheckCircle2, Crosshair } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import {
+  ArrowUpRight,
+  Sparkles,
+  Zap,
+  ShieldCheck,
+  Smartphone,
+  Monitor,
+  CheckCircle2,
+  TrendingUp,
+  Star
+} from 'lucide-react';
 import { profile } from '../data/profile';
 
 export default function Hero() {
+  const shouldReduceMotion = useReducedMotion();
+  const [activeTab, setActiveTab] = useState('performance');
+  const [activeViewport, setActiveViewport] = useState('desktop');
+
   const scrollTo = (id) => {
     const el = document.getElementById(id);
     if (el) {
@@ -12,180 +26,256 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative min-h-[100dvh] pt-32 pb-24 md:pt-40 md:pb-28 flex flex-col justify-center items-center px-4 overflow-hidden border-b border-crimson-900/30">
-
-      {/* Editorial Micro-Metadata Header Bar (Image 1 Style) */}
-      <div className="w-full max-w-6xl mx-auto flex items-center justify-between text-[10px] font-tech uppercase tracking-widest text-zinc-400 pb-8 border-b border-white/[0.08] mb-8">
-        <div className="flex items-center gap-2">
-          <span className="text-crimson-500 font-bold">●</span>
-          <span>S.RAHUL // EDITION 2026</span>
-        </div>
-        <div className="hidden sm:block text-zinc-300 font-medium tracking-widest">
-          DIGITAL ARCHITECT & CREATOR
-        </div>
-        <div className="flex items-center gap-2">
-          <span>COLOR:</span>
-          <span className="text-crimson-400 font-bold">CRIMSON ROJO</span>
-        </div>
-      </div>
-
-      {/* Massive Background Monumental Type (Image 1 "REDFLAG" Style) */}
+    <section
+      id="home"
+      className="relative min-h-[100dvh] pt-24 md:pt-28 pb-16 flex flex-col justify-center px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-white/[0.06]"
+    >
+      {/* Background Watermark Branding */}
       <div
         aria-hidden="true"
-        className="absolute top-[18%] md:top-[16%] left-1/2 -translate-x-1/2 w-full select-none pointer-events-none text-center overflow-hidden z-0"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full select-none pointer-events-none text-center overflow-hidden z-0 opacity-[0.03]"
       >
-        <span className="font-monument text-[22vw] md:text-[20vw] leading-none text-crimson-900/[0.22] tracking-tighter uppercase whitespace-nowrap block drop-shadow-[0_10px_40px_rgba(220,38,38,0.25)]">
-          S.RAHUL
+        <span className="font-monument text-[26vw] leading-none text-white tracking-tighter uppercase whitespace-nowrap block">
+          METIA
         </span>
       </div>
 
-      <div className="max-w-6xl mx-auto w-full relative z-10">
+      <div className="max-w-7xl mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
 
-        {/* Main Central Exhibition (Layered Image 1 "10 CIRLÉUR 20" Composition) */}
-        <div className="relative flex flex-col items-center text-center my-6">
+        {/* Left Column: Value Proposition & Action Stack (col-span-7) */}
+        <div className="lg:col-span-7 flex flex-col items-start text-left">
 
-          {/* Version / Comic Stamp Tag (Image 2 Style) */}
+          {/* Eyebrow Badge (1 of allowed per 3 sections) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="mb-4"
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="mb-5 inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-crimson-950/60 border border-crimson-600/40 text-crimson-400 font-tech text-[11px] tracking-wider uppercase font-semibold"
           >
-            <div className="comic-stamp">
-              VERSION 2.6 // LIVE
-            </div>
+            <span className="w-1.5 h-1.5 rounded-full bg-crimson-500 animate-pulse" />
+            <span>MODERN DIGITAL SOLUTIONS // EST. 2020</span>
           </motion.div>
 
-          {/* Layered Master Typography: Monumental + Script Calligraphy */}
-          <div className="relative inline-block my-2">
-
-            {/* The Script / Flourish Calligraphy Layer (Flowing Behind and Intersecting) */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.9, delay: 0.15 }}
-              className="absolute -top-6 sm:-top-10 md:-top-14 left-1/2 -translate-x-1/2 w-full pointer-events-none select-none z-10"
-            >
-              <span className="font-script text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-white/95 whitespace-nowrap drop-shadow-[0_2px_15px_rgba(255,255,255,0.4)]">
-                Ideas Made Online
-              </span>
-            </motion.div>
-
-            {/* Monumental Condensed Foreground Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.32, 0.72, 0, 1] }}
-              className="font-monument text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] tracking-tight leading-[0.88] text-white uppercase drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)] relative z-0"
-            >
-              HEY, I'M <span className="text-crimson-500 drop-shadow-[0_0_35px_rgba(220,38,38,0.7)]">S RAHUL</span>
-            </motion.h1>
-          </div>
-
-          {/* Subtitle & Philosophy Statement */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
+          {/* Monumental Headline: Exactly 2 lines */}
+          <motion.h1
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.25 }}
-            className="text-sm sm:text-base md:text-lg text-zinc-300 font-sans max-w-2xl leading-relaxed mt-6 mb-8"
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="font-monument text-5xl sm:text-7xl md:text-8xl tracking-tight leading-[0.92] text-white uppercase mb-5"
           >
-            I bring together web development, thoughtful design, digital marketing, and AI tools to create meaningful digital experiences.
+            WEBSITE <span className="text-crimson-500">DEVELOPMENT</span>
+            <br />
+            SERVICES THAT CONVERT
+          </motion.h1>
+
+          {/* Subtext: Exactly 18 words and max 2 lines */}
+          <motion.p
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-base sm:text-lg text-zinc-300 font-sans leading-relaxed max-w-xl mb-8"
+          >
+            Boost your online presence with modern, fast, and high-performing websites designed to turn casual visitors into paying customers.
           </motion.p>
 
-          {/* Action CTAs (Image 1 & 2 Brutalist Buttons) */}
+          {/* CTAs: Primary + Secondary */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.35 }}
-            className="flex flex-wrap items-center justify-center gap-4 w-full sm:w-auto"
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-wrap items-center gap-4 w-full sm:w-auto"
           >
-            {/* Primary Crimson CTA */}
-            <a
-              href="#work"
-              onClick={(e) => { e.preventDefault(); scrollTo('work'); }}
-              className="group relative inline-flex items-center justify-between gap-4 px-7 py-4 rounded-xl bg-crimson-600 hover:bg-crimson-500 text-white font-monument text-lg tracking-wider shadow-glow-crimson active:scale-[0.98] transition-all duration-300"
+            <button
+              type="button"
+              onClick={() => scrollTo('contact')}
+              className="group inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-full bg-crimson-600 hover:bg-crimson-500 text-white font-tech text-xs font-semibold tracking-wider uppercase shadow-glow-crimson hover:shadow-glow-crimson-lg transition-all duration-300 active:scale-[0.98] cursor-pointer"
             >
-              <span>EXPLORE MY WORK</span>
-              <span className="w-7 h-7 rounded-lg bg-black/30 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5">
-                <ArrowUpRight className="w-4 h-4 text-white" strokeWidth={2.5} />
+              <span>START PROJECT</span>
+              <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
+                <ArrowUpRight className="w-3.5 h-3.5 text-white" />
               </span>
-            </a>
+            </button>
 
-            {/* Secondary Brutalist Outline CTA */}
-            <a
-              href="#contact"
-              onClick={(e) => { e.preventDefault(); scrollTo('contact'); }}
-              className="group inline-flex items-center gap-2.5 px-7 py-4 rounded-xl bg-black/60 hover:bg-white/[0.06] border border-white/20 hover:border-crimson-500 text-white font-monument text-lg tracking-wider transition-all duration-300 active:scale-[0.98]"
+            <button
+              type="button"
+              onClick={() => scrollTo('services')}
+              className="inline-flex items-center justify-center px-6 py-3.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.12] hover:border-crimson-500/40 text-zinc-200 hover:text-white font-tech text-xs tracking-wider uppercase transition-all duration-300 active:scale-[0.98] cursor-pointer"
             >
-              <Sparkles className="w-4 h-4 text-crimson-400 group-hover:rotate-12 transition-transform duration-300" />
-              <span>LET'S COLLABORATE</span>
-            </a>
+              <span>EXPLORE SERVICES</span>
+            </button>
           </motion.div>
+
+          {/* Key Trust Signals Bar */}
+          <motion.div
+            initial={shouldReduceMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-10 pt-6 border-t border-white/[0.06] flex flex-wrap items-center gap-6 sm:gap-10 text-xs font-tech text-zinc-400"
+          >
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-crimson-400" />
+              <span>200+ Projects Built</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-crimson-400" />
+              <span>Sub-Second Load Times</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-crimson-400" />
+              <span>98% Client Satisfaction</span>
+            </div>
+          </motion.div>
+
         </div>
 
-        {/* 3 Floating Brutalist Feature Capsules */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.45 }}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-12 pt-8 border-t border-white/[0.08]"
-        >
-          {/* Card 1: Build */}
-          <div className="double-bezel-card group">
-            <div className="double-bezel-inner p-4 bg-[#0a0a0f] flex items-center gap-3.5 border border-white/[0.04] group-hover:border-crimson-500/40 transition-colors">
-              <div className="w-10 h-10 rounded-xl bg-crimson-600/15 border border-crimson-500/30 flex items-center justify-center shrink-0 text-crimson-400">
-                <Code className="w-5 h-5" strokeWidth={1.5} />
-              </div>
-              <div className="text-left">
-                <div className="font-monument text-base tracking-wide text-white">WEB ARCHITECTURE</div>
-                <div className="text-[11px] text-zinc-400 font-tech">React • JavaScript • Vite</div>
-              </div>
-            </div>
-          </div>
+        {/* Right Column: Dimensional Agency Hardware Terminal (col-span-5) */}
+        <div className="lg:col-span-5 relative mt-4 lg:mt-0">
 
-          {/* Card 2: Design */}
-          <div className="double-bezel-card group">
-            <div className="double-bezel-inner p-4 bg-[#0a0a0f] flex items-center gap-3.5 border border-white/[0.04] group-hover:border-crimson-500/40 transition-colors">
-              <div className="w-10 h-10 rounded-xl bg-crimson-600/15 border border-crimson-500/30 flex items-center justify-center shrink-0 text-crimson-400">
-                <Palette className="w-5 h-5" strokeWidth={1.5} />
-              </div>
-              <div className="text-left">
-                <div className="font-monument text-base tracking-wide text-white">EDITORIAL DESIGN</div>
-                <div className="text-[11px] text-zinc-400 font-tech">UI/UX • Canva • Branding</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 3: AI & Growth */}
-          <div className="double-bezel-card group">
-            <div className="double-bezel-inner p-4 bg-[#0a0a0f] flex items-center gap-3.5 border border-white/[0.04] group-hover:border-crimson-500/40 transition-colors">
-              <div className="w-10 h-10 rounded-xl bg-crimson-600/15 border border-crimson-500/30 flex items-center justify-center shrink-0 text-crimson-400">
-                <Cpu className="w-5 h-5" strokeWidth={1.5} />
-              </div>
-              <div className="text-left">
-                <div className="font-monument text-base tracking-wide text-white">AI AUTOMATION</div>
-                <div className="text-[11px] text-zinc-400 font-tech">Prompting • Pipelines • SEO</div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Editorial Bottom Micro-Bar (Image 1 Style) */}
-        <div className="mt-12 flex flex-col sm:flex-row items-center justify-between text-[11px] font-tech text-zinc-400 pt-6 border-t border-white/[0.06] gap-3">
-          <div className="text-left">
-            <span className="text-crimson-400 font-bold">STATUS:</span> {profile.status}
-          </div>
-          <div className="text-center text-zinc-400 text-[10px] hidden md:block">
-            CREDITS RESERVED // S RAHUL STUDIO
-          </div>
-          <button
-            type="button"
-            onClick={() => scrollTo('about')}
-            className="flex items-center gap-1.5 text-zinc-300 hover:text-crimson-400 transition-colors cursor-pointer"
+          {/* Floating Metric Capsule 1: Rating */}
+          <motion.div
+            initial={shouldReduceMotion ? false : { opacity: 0, x: -20, y: -10 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="absolute -top-6 -left-4 sm:-left-8 z-20 bg-[#0d0d14]/90 backdrop-blur-xl border border-white/[0.12] rounded-2xl p-4 shadow-2xl"
           >
-            <span>SCROLL TO EXPLORE</span>
-            <ChevronDown className="w-3.5 h-3.5 text-crimson-500 animate-bounce" />
-          </button>
+            <div className="text-[10px] font-tech text-zinc-400 uppercase tracking-wider mb-1">
+              CLIENT RATING
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="flex text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                ))}
+              </div>
+              <span className="font-tech text-sm font-bold text-white ml-1">4.8 / 5</span>
+            </div>
+            <span className="text-[10px] font-sans text-zinc-400 block mt-0.5">
+              from 200+ global clients
+            </span>
+          </motion.div>
+
+          {/* Floating Metric Capsule 2: Traffic Growth */}
+          <motion.div
+            initial={shouldReduceMotion ? false : { opacity: 0, x: 20, y: 20 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+            className="absolute -bottom-6 -right-4 sm:-right-6 z-20 bg-[#0d0d14]/90 backdrop-blur-xl border border-crimson-600/30 rounded-2xl p-4 shadow-glow-crimson"
+          >
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <div className="text-[10px] font-tech text-zinc-400 uppercase tracking-wider">
+                  TRAFFIC VELOCITY
+                </div>
+                <div className="font-monument text-2xl text-white tracking-wide">
+                  +45.6%
+                </div>
+              </div>
+              <div className="w-8 h-8 rounded-xl bg-crimson-600/20 border border-crimson-500/40 flex items-center justify-center text-crimson-400">
+                <TrendingUp className="w-4 h-4" />
+              </div>
+            </div>
+            <div className="text-[10px] font-tech text-emerald-400 flex items-center gap-1 mt-1">
+              <span>↑</span>
+              <span>GROWING QUARTER OVER QUARTER</span>
+            </div>
+          </motion.div>
+
+          {/* Center Hardware Container */}
+          <div className="double-bezel-card relative">
+            <div className="double-bezel-inner p-5 sm:p-6 bg-[#08080c] border border-white/[0.08]">
+
+              {/* Console Header Bar */}
+              <div className="flex items-center justify-between pb-4 border-b border-white/[0.08] mb-5">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-crimson-500" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+                  <span className="font-tech text-xs text-zinc-400 ml-2">metiadigital.com</span>
+                </div>
+
+                {/* Viewport switcher */}
+                <div className="flex items-center gap-1 bg-white/[0.04] p-1 rounded-lg border border-white/[0.06]">
+                  <button
+                    type="button"
+                    onClick={() => setActiveViewport('desktop')}
+                    className={`p-1.5 rounded-md transition-colors ${
+                      activeViewport === 'desktop' ? 'bg-crimson-600 text-white' : 'text-zinc-500 hover:text-white'
+                    }`}
+                    title="Desktop Preview"
+                  >
+                    <Monitor className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveViewport('mobile')}
+                    className={`p-1.5 rounded-md transition-colors ${
+                      activeViewport === 'mobile' ? 'bg-crimson-600 text-white' : 'text-zinc-500 hover:text-white'
+                    }`}
+                    title="Mobile Viewport"
+                  >
+                    <Smartphone className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Live Metric HUD Display */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between text-xs font-tech text-zinc-400">
+                  <span className="uppercase">METRIC BENCHMARKS</span>
+                  <span className="text-crimson-400">ACTIVE PRODUCTION</span>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
+                    <div className="text-[10px] font-tech text-zinc-400 uppercase">PERFORMANCE</div>
+                    <div className="font-monument text-3xl text-white mt-1">99 <span className="text-xs font-tech text-zinc-500">/ 100</span></div>
+                    <div className="text-[10px] font-tech text-emerald-400 mt-1">Audit Verified</div>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
+                    <div className="text-[10px] font-tech text-zinc-400 uppercase">SATISFACTION</div>
+                    <div className="font-monument text-3xl text-crimson-400 mt-1">98%</div>
+                    <div className="text-[10px] font-tech text-zinc-400 mt-1">Client Retention</div>
+                  </div>
+                </div>
+
+                {/* Simulated Telemetry Streams */}
+                <div className="p-4 rounded-xl bg-[#040406] border border-white/[0.06] space-y-2.5 font-tech text-xs">
+                  <div className="flex items-center justify-between">
+                    <span className="text-zinc-400">Core Web Vitals</span>
+                    <span className="text-emerald-400 font-semibold">ALL PASSED</span>
+                  </div>
+                  <div className="w-full bg-zinc-900 rounded-full h-1.5 overflow-hidden">
+                    <div className="bg-gradient-to-r from-crimson-600 to-crimson-400 h-full w-[98%]" />
+                  </div>
+                  <div className="flex justify-between text-[10px] text-zinc-400 pt-1">
+                    <span>LCP: 0.38s</span>
+                    <span>FID: 4ms</span>
+                    <span>CLS: 0.00</span>
+                  </div>
+                </div>
+
+                {/* Architecture Highlights */}
+                <div className="pt-2 flex flex-wrap gap-2 text-[10px] font-tech">
+                  <span className="px-2.5 py-1 rounded-md bg-white/[0.03] border border-white/[0.06] text-zinc-300">
+                    REACT 18
+                  </span>
+                  <span className="px-2.5 py-1 rounded-md bg-white/[0.03] border border-white/[0.06] text-zinc-300">
+                    TAILWIND CSS
+                  </span>
+                  <span className="px-2.5 py-1 rounded-md bg-white/[0.03] border border-white/[0.06] text-zinc-300">
+                    SEO READY
+                  </span>
+                  <span className="px-2.5 py-1 rounded-md bg-white/[0.03] border border-white/[0.06] text-zinc-300">
+                    STRIPE READY
+                  </span>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
         </div>
 
       </div>
