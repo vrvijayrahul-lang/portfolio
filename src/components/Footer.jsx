@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUp, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowUp, Github, Linkedin, Mail, MessageCircle } from 'lucide-react';
 import { profile } from '../data/profile';
 
 const footerNav = [
@@ -72,6 +72,16 @@ export default function Footer({ onOpenAdmin }) {
                 aria-label="LinkedIn Profile"
               >
                 <Linkedin className="w-4 h-4" />
+              </a>
+
+              <a
+                href={profile.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] text-emerald-400 hover:text-white hover:border-emerald-500/50 hover:bg-emerald-500/10 flex items-center justify-center transition-colors"
+                aria-label="WhatsApp Metia Digital"
+              >
+                <MessageCircle className="w-4 h-4" />
               </a>
 
               <a

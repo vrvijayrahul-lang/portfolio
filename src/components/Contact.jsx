@@ -9,7 +9,8 @@ import {
   AlertCircle,
   ArrowUpRight,
   Clock,
-  ShieldCheck
+  ShieldCheck,
+  MessageCircle
 } from 'lucide-react';
 import { profile } from '../data/profile';
 import { addInquiry } from '../data/store';
@@ -45,7 +46,7 @@ export default function Contact() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedWhatsApp, setCopiedWhatsApp] = useState(false);
 
   const validate = () => {
     const errs = {};
@@ -100,10 +101,10 @@ export default function Contact() {
     }
   };
 
-  const copyEmail = () => {
-    navigator.clipboard.writeText(profile.email);
-    setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2000);
+  const copyWhatsApp = () => {
+    navigator.clipboard.writeText("90114441204");
+    setCopiedWhatsApp(true);
+    setTimeout(() => setCopiedWhatsApp(false), 2000);
   };
 
   return (
@@ -119,26 +120,42 @@ export default function Contact() {
             Let us create a modern digital experience for your business. Tell us about your goals and we will prepare a tailored proposal within 24 hours.
           </p>
 
-          {/* Direct Email Card */}
-          <div className="p-6 rounded-2xl bg-[#08080c] border border-white/[0.08] mb-6">
-            <span className="text-[10px] font-tech text-zinc-400 uppercase tracking-widest block mb-2">
-              DIRECT AGENCY TRANSMISSION
+          {/* Direct WhatsApp Card */}
+          <div className="p-6 rounded-2xl bg-[#08080c] border border-emerald-500/20 hover:border-emerald-500/40 transition-colors mb-6 shadow-lg shadow-emerald-950/20">
+            <span className="text-[10px] font-tech text-emerald-400 uppercase tracking-widest flex items-center gap-2 mb-2 font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              DIRECT WHATSAPP TRANSMISSION
             </span>
             <div className="flex items-center justify-between gap-3">
               <a
-                href={`mailto:${profile.email}`}
-                className="text-lg font-tech text-white hover:text-crimson-400 transition-colors font-semibold"
+                href={profile.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-lg font-tech text-white hover:text-emerald-400 transition-colors font-semibold flex items-center gap-2.5 group"
               >
-                {profile.email}
+                <MessageCircle className="w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform" />
+                <span>+91 90114441204</span>
               </a>
-              <button
-                type="button"
-                onClick={copyEmail}
-                className="p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-zinc-400 hover:text-white transition-colors"
-                title="Copy email to clipboard"
-              >
-                {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-              </button>
+              <div className="flex items-center gap-2">
+                <a
+                  href={profile.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 font-tech text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
+                  title="Open WhatsApp Chat"
+                >
+                  <span>CHAT</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
+                <button
+                  type="button"
+                  onClick={copyWhatsApp}
+                  className="p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-zinc-400 hover:text-white transition-colors"
+                  title="Copy WhatsApp number"
+                >
+                  {copiedWhatsApp ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
           </div>
 
